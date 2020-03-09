@@ -1,8 +1,11 @@
 require("dotenv").config({ path: ".env.development" });
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const { db, port } = require("./config");
+
+const app = express();
+// a method inbuilt in express to recognize the incoming request object as a JSON object.
+app.use(express.json());
 
 mongoose
     .connect(db, { useNewUrlParser: true })
