@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 const objectId = mongoose.Types.ObjectId;
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { jwtSecret } = require("../config");
+const passport = require("passport");
 
 const User = require("../models/User");
 
@@ -18,21 +22,37 @@ const signup = (req, res) => {
             console.log(err);
             return res.status(500).json({ msg: err.message });
         });
+
     const newUser = new User({
         fname,
         lname,
         email,
         password
     });
-
-    newUser
-        .save()
-        .then(user => {
-            return res.json(user);
-        })
-        .catch(err => {
-            return res.status(404).send("unable to save data to db");
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err;
+            newUser.password = hash;
+            newUser
+                .save()
+                .then(user => {
+                    jwt.sign(
+                        {
+                            email: user.email
+                        },
+                        jwtSecret,
+                        { expiresIn: 3600 },
+                        (err, token) => {
+                            if (err) throw err;
+                            return res.json({ token, user });
+                        }
+                    );
+                })
+                .catch(err => {
+                    return res.status(404).send("unable to save data to db");
+                });
         });
+    });
 };
 
 module.exports = {

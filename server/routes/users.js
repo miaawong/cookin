@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const auth = require("../middleware/auth");
+// const auth = require("../middleware/auth");
 const { signup } = require("../controllers/users");
 
 // route    POST api/users
