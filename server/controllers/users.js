@@ -3,11 +3,19 @@ const objectId = mongoose.Types.ObjectId;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { jwtSecret } = require("../config");
-const passport = require("passport");
 
 const User = require("../models/User");
 
-const signup = (req, res) => {
+signToken = user => {
+    return jwt.sign(
+        {
+            email: user.email,
+            id: user.id
+        },
+        jwtSecret
+    );
+};
+const signup = async (req, res) => {
     const { fname, lname, email, password } = req.body;
     if (!fname || !lname || !email || !password) {
         return res.status(400).json({ msg: "Please fill out all fields" });
@@ -29,32 +37,23 @@ const signup = (req, res) => {
         email,
         password
     });
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-            newUser
-                .save()
-                .then(user => {
-                    jwt.sign(
-                        {
-                            email: user.email
-                        },
-                        jwtSecret,
-                        { expiresIn: 3600 },
-                        (err, token) => {
-                            if (err) throw err;
-                            return res.json({ token, user });
-                        }
-                    );
-                })
-                .catch(err => {
-                    return res.status(404).send("unable to save data to db");
-                });
-        });
-    });
+
+    await newUser.save();
+    signToken(newUser);
+    res.json({ msg: newUser });
 };
 
+//generate token
+const login = (req, res) => {
+    const token = signToken(req.user);
+    res.status(200).json({ token });
+    console.log("login successful");
+};
+const secret = (req, res) => {
+    res.json({ secret: "secret is here" });
+};
 module.exports = {
-    signup
+    signup,
+    login,
+    secret
 };
