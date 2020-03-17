@@ -1,11 +1,12 @@
-const { jwtSecret } = require("./config");
+const { jwtSecret, googleClientId, googleSecret } = require("./config");
 const JwtStrategy = require("passport-jwt").Strategy,
     ExtractJwt = require("passport-jwt").ExtractJwt;
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("./models/User");
 
-// JWS Strategy
+// JWT Strategy
 const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: jwtSecret
@@ -15,21 +16,33 @@ passport.use(
     new JwtStrategy(opts, async (payload, done) => {
         try {
             // find the user specified in token
-            // // is it better to use id or email?
-            const user = await User.findOne({ email: payload.email });
-            // if user doesn't exist, handle it
+            const user = await User.findById(payload.id);
             if (!user) {
                 return done(null, false);
             }
-
-            done(null, user);
-            // otherwise, return the user
         } catch (err) {
             done(err, false);
         }
     })
 );
 // JWT ends
+
+// GOOGLE OAUTH Strategy
+passport.use(
+    new GoogleStrategy(
+        {
+            clientID: googleClientId,
+            clientSecret: googleSecret,
+            callbackURL: "http://localhost:3000"
+        },
+        async (accessToken, refreshToken, profile, done) => {
+            console.log("accesstoken", accessToken);
+            console.log("refreshToken", refreshToken);
+            console.log("profile", profile);
+            done(null, profile);
+        }
+    )
+);
 
 //Local Strategy
 passport.use(
@@ -50,6 +63,7 @@ passport.use(
                 if (!isValidPassword) {
                     return done(null, false);
                 }
+
                 done(null, user);
             } catch (err) {
                 done(err, false);
