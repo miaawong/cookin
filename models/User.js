@@ -2,13 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 
-//create user
 const UserSchema = new Schema({
     name: {
         type: String,
         required: true
     },
-
     email: {
         type: String,
         required: true,
@@ -17,7 +15,13 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    recipes: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Recipe"
+        }
+    ]
 });
 
 // before, 'saving' to db, run this function
@@ -41,4 +45,5 @@ UserSchema.methods.passwordValid = async function(plainTextPassword) {
         throw new err(err);
     }
 };
-module.exports = User = mongoose.model("user", UserSchema);
+let User = mongoose.model("User", UserSchema);
+module.exports = User;

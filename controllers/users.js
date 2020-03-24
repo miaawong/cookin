@@ -39,7 +39,7 @@ const signup = async (req, res) => {
         const token = signToken(newUser);
         console.log(token);
 
-        res.json({ token, msg: { newUser } });
+        res.json({ token, newUser });
     } catch (err) {
         return res.json({ msg: err });
     }
