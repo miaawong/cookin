@@ -66,8 +66,17 @@ const getUserInfo = async (req, res) => {
         console.log(err);
     }
 };
+
+const getUserRecipes = (req, res) => {
+    User.findById(req.user.id).then(user => {
+        res.json({ recipe: user.recipes });
+    });
+};
+
 module.exports = {
     signup,
     login,
-    getUserInfo
+    getUserInfo,
+    getUserRecipes,
+    deleteUserRecipe
 };

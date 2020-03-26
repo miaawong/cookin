@@ -6,15 +6,16 @@ const passportJWT = passport.authenticate("jwt", { session: false });
 const {
     createRecipe,
     updateRecipe,
-    getRecipe
+    getRecipe,
+    deleteRecipe
 } = require("../controllers/recipes");
 
 // post recipes
-
 app.post("/", passportJWT, createRecipe);
-
 // update recipes
 app.put("/:recipeId", passportJWT, updateRecipe);
 // get one project
 app.get("/:recipeId", passportJWT, getRecipe);
+//delete a recipe
+app.delete("/:recipeId", passportJWT, deleteRecipe);
 module.exports = app;

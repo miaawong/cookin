@@ -51,17 +51,14 @@ const createRecipe = (req, res) => {
     });
 };
 const updateRecipe = (req, res) => {
-    // LEARNING THIS
     Recipe.findByIdAndUpdate(
         // need to figure out how to get id into params
         req.params.recipeId,
-        // prevents the original to be overwritten?
         { $set: { ...req.body } },
         { new: true }
     )
-        .then(update => {
-            if (update) {
-                console.log(update);
+        .then(updated => {
+            if (updated) {
                 return res.send();
             } else {
                 res.json({ errMsg: "couldn't update this recipe, try again" });
@@ -82,8 +79,24 @@ const getRecipe = (req, res) => {
             });
         });
 };
+
+const deleteRecipe = (req, res) => {
+    Recipe.findById(req.params.recipeId)
+        .then(recipe => {
+            if (!recipe) {
+                return res.status(404).json({ msg: "recipe not found" });
+            }
+            recipe.remove();
+            res.json({ msg: "recipe deleted" });
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(500).json({ msg: "something went wrong" });
+        });
+};
 module.exports = {
     createRecipe,
     updateRecipe,
-    getRecipe
+    getRecipe,
+    deleteRecipe
 };

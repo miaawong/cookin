@@ -1,6 +1,11 @@
 const express = require("express");
 const app = express();
-const { signup, login, getUserInfo } = require("../controllers/users");
+const {
+    signup,
+    login,
+    getUserInfo,
+    getUserRecipes
+} = require("../controllers/users");
 const passport = require("passport");
 const passportConf = require("../passport");
 const passportLogin = passport.authenticate("local", { session: false });
@@ -17,10 +22,7 @@ app.post("/login", passportLogin, login);
 //app.post("/oauth/google", passportGoogle);
 // get user's info
 app.get("/user", passportJWT, getUserInfo);
+// get all user's projects
+app.get("/recipes", passportJWT, getUserRecipes);
 
-// TO DO
-// add a recipe to a user
-//app.get('/recipes', passportJWT, addFromUserRecipes)
-// delete a recipe from a user
-// app.delete('/recipes', passportJWT, deleteFromUserRecipes)
 module.exports = app;

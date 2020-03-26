@@ -17,12 +17,12 @@ const RecipeSchema = new Schema(
             type: Number
         },
         ingredients: {
-            type: Object,
-            required: true
+            type: Object
+            // required: true
         },
         instructions: {
-            type: String,
-            required: true
+            type: String
+            // required: true
         },
         img: {
             type: String
