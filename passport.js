@@ -53,15 +53,19 @@ passport.use(
         },
         async (email, password, done) => {
             try {
+                console.log("trying to lgin in passport");
                 //find the user from email
                 const user = await User.findOne({ email });
                 //if not handle
                 if (!user) {
+                    console.log("did not find user");
                     return done(null, false);
                 }
                 // check if password is correct
-                const isValidPassword = await user.passwordValid(password);
+                // had await but created login bug
+                const isValidPassword = user.passwordValid(password);
                 if (!isValidPassword) {
+                    console.log("password not valid");
                     return done(null, false);
                 }
 

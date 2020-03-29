@@ -47,7 +47,9 @@ const signup = async (req, res) => {
 
 //generate token
 const login = async (req, res) => {
+    console.log("login");
     try {
+        console.log("trying");
         const token = await signToken(req.user);
         res.status(200).json({ token });
         console.log("login successful");
@@ -61,7 +63,7 @@ const getUserInfo = async (req, res) => {
     try {
         console.log("getting secret");
         let userData = req.user;
-        res.json({ secret: "secret is here", userData });
+        res.json({ userData });
     } catch (err) {
         console.log(err);
     }
@@ -77,6 +79,5 @@ module.exports = {
     signup,
     login,
     getUserInfo,
-    getUserRecipes,
-    deleteUserRecipe
+    getUserRecipes
 };
