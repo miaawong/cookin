@@ -24,19 +24,6 @@ const UserSchema = new Schema({
     ]
 });
 
-// before, 'saving' to db, run this function
-// we need 'this' in this function, so we can't use arrow function
-UserSchema.pre("save", async function(next) {
-    try {
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(this.password, salt);
-        this.password = hashedPassword;
-        next();
-    } catch (err) {
-        next(err);
-    }
-});
-
 // create our own method to check if password matches
 UserSchema.methods.passwordValid = async function(plainTextPassword) {
     try {

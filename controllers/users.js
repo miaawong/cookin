@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const objectId = mongoose.Types.ObjectId;
 const jwt = require("jsonwebtoken");
 const { jwtSecret } = require("../config");
+const bcrypt = require("bcryptjs");
 
 const User = require("../models/User");
 
@@ -30,18 +31,22 @@ const signup = async (req, res) => {
                 return res.status(500).json({ msg: err.message });
             });
 
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
         const newUser = new User({
             name,
             email,
-            password
+            password: hashedPassword
         });
+
         await newUser.save();
         const token = signToken(newUser);
         console.log(token);
 
         res.json({ token, newUser });
     } catch (err) {
-        return res.json({ msg: err });
+        return res.json({ msg: err + "err" });
     }
 };
 

@@ -33,13 +33,14 @@ const createRecipe = (req, res) => {
                 .save()
                 .then(recipe => {
                     user.recipes.push(ObjectId(recipe.id));
-                    user.save();
-
-                    res.json({
-                        recipes: {
-                            recipeId: recipe.id
-                        },
-                        recipe
+                    user.save().then(user => {
+                        res.json({
+                            user,
+                            recipes: {
+                                recipeId: recipe.id
+                            },
+                            recipe
+                        });
                     });
                 })
                 .catch(err => {
