@@ -75,9 +75,15 @@ const getUserInfo = async (req, res) => {
 };
 
 const getUserRecipes = (req, res) => {
-    User.findById(req.user.id).then(user => {
-        res.json({ recipe: user.recipes });
-    });
+    User.findById(req.user.id)
+        // recipes referring to the user's recipes
+        .populate("recipes")
+        .then(user => {
+            res.json({ recipe: user.recipes });
+        })
+        .catch(err => {
+            console.log(err);
+        });
 };
 
 module.exports = {

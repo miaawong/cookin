@@ -32,5 +32,5 @@ UserSchema.methods.passwordValid = async function(plainTextPassword) {
         throw new err(err);
     }
 };
-let User = mongoose.model("user", UserSchema);
+let User = mongoose.model("User", UserSchema, "users");
 module.exports = User;
