@@ -1,17 +1,18 @@
 const mongoose = require("mongoose");
 const objectId = mongoose.Types.ObjectId;
 const jwt = require("jsonwebtoken");
-const { jwtSecret } = require("../config");
+const { jwtSecret, refreshSecret } = require("../config");
 const bcrypt = require("bcryptjs");
 
 const User = require("../models/User");
-
+let refreshToken = [];
 signToken = user => {
     return jwt.sign(
         {
             id: user.id
         },
-        jwtSecret
+        jwtSecret,
+        { expiresIn: 3600 }
     );
 };
 const signup = async (req, res) => {
@@ -50,20 +51,6 @@ const signup = async (req, res) => {
     }
 };
 
-//generate token
-const login = async (req, res) => {
-    console.log("login");
-    try {
-        console.log("trying");
-        const token = await signToken(req.user);
-        res.status(200).json({ token });
-        console.log("login successful");
-    } catch (err) {
-        console.log("err");
-        console.log("err", err);
-        return res.status(500).json({ msg: err });
-    }
-};
 const getUserInfo = async (req, res) => {
     try {
         console.log("getting secret");
@@ -76,7 +63,6 @@ const getUserInfo = async (req, res) => {
 
 const getUserRecipes = (req, res) => {
     User.findById(req.user.id)
-        // recipes referring to the user's recipes
         .populate("recipes")
         .then(user => {
             res.json({ recipe: user.recipes });
@@ -88,7 +74,7 @@ const getUserRecipes = (req, res) => {
 
 module.exports = {
     signup,
-    login,
+
     getUserInfo,
     getUserRecipes
 };

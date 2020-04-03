@@ -16,8 +16,7 @@ const passportJWT = passport.authenticate("jwt", { session: false });
 
 // sign up
 app.post("/", signup);
-// login
-app.post("/login", passportLogin, login);
+
 // Google OAuth
 //app.post("/oauth/google", passportGoogle);
 // get user's info
