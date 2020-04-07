@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
-// const { login, getNewJWT } = require("../controllers/auth");
 const passport = require("passport");
 const passportConf = require("../passport");
 const passportLogin = passport.authenticate("local", { session: false });
 const jwt = require("jsonwebtoken");
 const { verify } = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const { jwtSecret, refreshSecret } = require("../config");
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
@@ -29,6 +29,68 @@ signRefreshToken = user => {
         refreshSecret,
         { expiresIn: "7d" }
     );
+};
+const signup = async (req, res) => {
+    console.log("POST signup");
+    try {
+        const { name, email, password } = req.body;
+        if (!name || !email || !password) {
+            return res.status(400).json({ msg: "Please fill out all fields" });
+        }
+        User.findOne({ email })
+            .then(user => {
+                if (user) {
+                    return res.status(400).json({ msg: "User already exists" });
+                }
+            })
+            .catch(err => {
+                return res.status(500).json({ msg: err.message });
+            });
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const newUser = new User({
+            name,
+            email,
+            password: hashedPassword
+        });
+
+        await newUser.save();
+        const token = signToken(newUser);
+        const refreshToken = signRefreshToken(newUser);
+
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true
+            //path: "/refresh_token"
+        });
+        console.log(token);
+
+        res.json({ token, newUser, refreshToken });
+    } catch (err) {
+        return res.json({ msg: err + "err" });
+    }
+};
+//generate token
+const login = async (req, res) => {
+    console.log("login");
+    try {
+        console.log("trying");
+
+        const token = await signToken(req.user);
+        const refreshToken = signRefreshToken(req.user);
+
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true
+            //path: "/refresh_token"
+        });
+        res.status(200).json({ token: token, refreshToken: refreshToken });
+        console.log("login successful");
+    } catch (err) {
+        console.log("err");
+        console.log("err", err);
+        return res.status(500).json({ msg: err });
+    }
 };
 const getNewJWT = async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
@@ -58,29 +120,8 @@ const getNewJWT = async (req, res) => {
         });
 };
 
-//generate token
-const login = async (req, res) => {
-    console.log("login");
-    try {
-        console.log("trying");
-
-        const token = await signToken(req.user);
-        const refreshToken = signRefreshToken(req.user);
-
-        res.cookie("refreshToken", refreshToken, {
-            httpOnly: true
-            //path: "/refresh_token"
-        });
-        res.status(200).json({ token: token, refreshToken: refreshToken });
-        console.log("login successful");
-    } catch (err) {
-        console.log("err");
-        console.log("err", err);
-        return res.status(500).json({ msg: err });
-    }
-};
-
 // login
+app.post("/", signup);
 app.post("/login", passportLogin, login);
 app.post("/refresh_token", getNewJWT);
 app.get("/cookies", (req, res) => {
