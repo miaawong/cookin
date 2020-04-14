@@ -11,20 +11,20 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
 const User = require("../models/User");
-signToken = user => {
+signToken = (user) => {
     return jwt.sign(
         {
-            id: user.id
+            id: user.id,
         },
         jwtSecret,
         { expiresIn: "30s" }
     );
 };
-signRefreshToken = user => {
+signRefreshToken = (user) => {
     return jwt.sign(
         {
             id: user.id,
-            tokenVersion: user.tokenVersion
+            tokenVersion: user.tokenVersion,
         },
         refreshSecret,
         { expiresIn: "7d" }
@@ -38,12 +38,12 @@ const signup = async (req, res) => {
             return res.status(400).json({ msg: "Please fill out all fields" });
         }
         User.findOne({ email })
-            .then(user => {
+            .then((user) => {
                 if (user) {
                     return res.status(400).json({ msg: "User already exists" });
                 }
             })
-            .catch(err => {
+            .catch((err) => {
                 return res.status(500).json({ msg: err.message });
             });
 
@@ -53,7 +53,7 @@ const signup = async (req, res) => {
         const newUser = new User({
             name,
             email,
-            password: hashedPassword
+            password: hashedPassword,
         });
 
         await newUser.save();
@@ -61,7 +61,7 @@ const signup = async (req, res) => {
         const refreshToken = signRefreshToken(newUser);
 
         res.cookie("refreshToken", refreshToken, {
-            httpOnly: true
+            httpOnly: true,
             //path: "/refresh_token"
         });
         console.log(token);
@@ -76,15 +76,19 @@ const login = async (req, res) => {
     console.log("login");
     try {
         console.log("trying");
-
         const token = await signToken(req.user);
         const refreshToken = signRefreshToken(req.user);
-
         res.cookie("refreshToken", refreshToken, {
-            httpOnly: true
+            httpOnly: true,
             //path: "/refresh_token"
         });
-        res.status(200).json({ token: token, refreshToken: refreshToken });
+        let userData = req.user;
+
+        res.status(200).json({
+            token: token,
+            refreshToken: refreshToken,
+            userData: userData,
+        });
         console.log("login successful");
     } catch (err) {
         console.log("err");
@@ -107,15 +111,15 @@ const getNewJWT = async (req, res) => {
     }
     //refreshtoken is valid, we will send them a new one
     await User.findById(payload.id)
-        .then(foundUser => {
+        .then((foundUser) => {
             res.cookie("refreshToken", signRefreshToken(foundUser), {
-                httpOnly: true
+                httpOnly: true,
                 // setting cookie to be only valid to this path.. breaks
                 // path: "/refresh_token"
             });
             return res.send({ JWToken: signToken(foundUser) });
         })
-        .catch(err => {
+        .catch((err) => {
             console.log(err);
         });
 };

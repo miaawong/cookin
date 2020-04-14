@@ -9,6 +9,7 @@ const passportJWT = passport.authenticate("jwt", { session: false });
 //     scope: "https://www.googleapis.com/auth/userinfo.profile"
 // });
 
+// Do I need this route.. gets user's info with just JWT
 app.get("/user", passportJWT, getUserInfo);
 // get all user's projects
 app.get("/recipes", passportJWT, getUserRecipes);
