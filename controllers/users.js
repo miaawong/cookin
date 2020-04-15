@@ -16,15 +16,15 @@ const getUserInfo = async (req, res) => {
 const getUserRecipes = (req, res) => {
     User.findById(req.user.id)
         .populate("recipes")
-        .then(user => {
+        .then((user) => {
             res.json({ recipe: user.recipes });
         })
-        .catch(err => {
+        .catch((err) => {
             console.log(err);
         });
 };
 
 module.exports = {
     getUserInfo,
-    getUserRecipes
+    getUserRecipes,
 };

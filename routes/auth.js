@@ -84,11 +84,20 @@ const login = async (req, res) => {
         });
         let userData = req.user;
 
-        res.status(200).json({
-            token: token,
-            refreshToken: refreshToken,
-            userData: userData,
-        });
+        User.findById(req.user.id)
+            .populate("recipes")
+            .then((user) => {
+                res.status(200).json({
+                    recipes: user.recipes,
+                    token: token,
+                    refreshToken: refreshToken,
+                    userData: userData,
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
         console.log("login successful");
     } catch (err) {
         console.log("err");

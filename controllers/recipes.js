@@ -12,10 +12,10 @@ const createRecipe = (req, res) => {
         duration,
         ingredients,
         instructions,
-        img
+        img,
     } = req.body;
     // find user
-    User.findById(req.user.id).then(user => {
+    User.findById(req.user.id).then((user) => {
         if (user) {
             let ownerId = req.user.id;
             const newRecipe = new Recipe({
@@ -26,24 +26,24 @@ const createRecipe = (req, res) => {
                 ingredients,
                 instructions,
                 img,
-                ownerId
+                ownerId,
             });
 
             newRecipe
                 .save()
-                .then(recipe => {
+                .then((recipe) => {
                     user.recipes.push(ObjectId(recipe.id));
-                    user.save().then(user => {
+                    user.save().then((user) => {
                         res.json({
                             user,
                             recipes: {
-                                recipeId: recipe.id
+                                recipeId: recipe.id,
                             },
-                            recipe
+                            recipe,
                         });
                     });
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.log(err);
                 });
         } else {
@@ -58,39 +58,41 @@ const updateRecipe = (req, res) => {
         { $set: { ...req.body } },
         { new: true }
     )
-        .then(updated => {
+        .then((updated) => {
             if (updated) {
                 return res.send();
             } else {
                 res.json({ errMsg: "couldn't update this recipe, try again" });
             }
         })
-        .catch(err => {
+        .catch((err) => {
             console.log(err);
         });
 };
 const getRecipe = (req, res) => {
+    console.log("getting recipe");
     Recipe.findById(req.params.recipeId)
-        .then(recipe => {
+        .then((recipe) => {
             return res.json({ msg: "recipe", recipe });
         })
-        .catch(err => {
+        .catch((err) => {
+            console.log(err, "getrecipe err");
             res.status(403).json({
-                errMsg: "Oops, you're not allowed to see that, please login"
+                errMsg: "Oops, you're not allowed to see that, please login",
             });
         });
 };
 
 const deleteRecipe = (req, res) => {
     Recipe.findById(req.params.recipeId)
-        .then(recipe => {
+        .then((recipe) => {
             if (!recipe) {
                 return res.status(404).json({ msg: "recipe not found" });
             }
             recipe.remove();
             res.json({ msg: "recipe deleted" });
         })
-        .catch(err => {
+        .catch((err) => {
             console.log(err);
             return res.status(500).json({ msg: "something went wrong" });
         });
@@ -99,5 +101,5 @@ module.exports = {
     createRecipe,
     updateRecipe,
     getRecipe,
-    deleteRecipe
+    deleteRecipe,
 };
