@@ -58,12 +58,8 @@ const updateRecipe = (req, res) => {
         { $set: { ...req.body } },
         { new: true }
     )
-        .then((updated) => {
-            if (updated) {
-                return res.send();
-            } else {
-                res.json({ errMsg: "couldn't update this recipe, try again" });
-            }
+        .then((recipe) => {
+            return res.json({ recipe });
         })
         .catch((err) => {
             console.log(err);

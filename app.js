@@ -9,27 +9,27 @@ const app = express();
 app.use(express.json());
 
 // allow CORS
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3001"); // update to match the domain you will make the request from
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
-
     res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
     next();
 });
 
 mongoose
     .connect(db, { useNewUrlParser: true })
     .then(() => console.log("mongodb connected"))
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 app.get("/", (req, res) => res.send("App connected"));
 app.use("/api", require("./routes/routes"));
 
 app.get("*", (req, res) => {
     res.send("app connected! default undefined routes");
 });
-app.listen(port, err => {
+app.listen(port, (err) => {
     console.log(`Server live on port: ${port}`);
 });
