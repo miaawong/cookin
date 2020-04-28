@@ -17,7 +17,7 @@ signToken = (user) => {
             id: user.id,
         },
         jwtSecret,
-        { expiresIn: "30s" }
+        { expiresIn: "15m" }
     );
 };
 signRefreshToken = (user) => {
@@ -126,11 +126,21 @@ const getNewJWT = async (req, res) => {
                 // setting cookie to be only valid to this path.. breaks
                 // path: "/refresh_token"
             });
-            return res.send({ JWToken: signToken(foundUser) });
+            return res.send({
+                JWToken: signToken(foundUser),
+                _id: foundUser._id,
+                name: foundUser.name,
+                email: foundUser.email,
+                password: foundUser.password,
+            });
         })
         .catch((err) => {
             console.log(err);
         });
+};
+const logout = async (req, res) => {
+    res.clearCookie("refreshToken", { path: "/" });
+    return res.sendStatus(200);
 };
 
 // login
@@ -140,5 +150,5 @@ app.post("/refresh_token", getNewJWT);
 app.get("/cookies", (req, res) => {
     console.log("cookies", req.cookies);
 });
-
+app.post("/logout", logout);
 module.exports = app;
