@@ -11,6 +11,7 @@ const createRecipe = (req, res) => {
         servings,
         duration,
         ingredients,
+        temperature,
         instructions,
         img,
     } = req.body;
@@ -24,6 +25,7 @@ const createRecipe = (req, res) => {
                 servings,
                 duration,
                 ingredients,
+                temperature,
                 instructions,
                 img,
                 ownerId,
@@ -69,6 +71,7 @@ const getRecipe = (req, res) => {
     console.log("getting recipe");
     Recipe.findById(req.params.recipeId)
         .then((recipe) => {
+            console.log(recipe);
             return res.json({ msg: "recipe", recipe });
         })
         .catch((err) => {

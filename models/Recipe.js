@@ -1,41 +1,58 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const IngredientSchema = new Schema({
+    ingName: { type: String },
+    amount: { type: Number },
+    unit: {
+        type: String,
+        enum: ["tsp", "tbsp", "cup", "oz", "lbs", "g", "L", "mL", "kg"],
+    },
+});
+
+const TempSchema = new Schema({
+    temp: { type: Number },
+    unit: {
+        type: String,
+        enum: ["F", "C"],
+    },
+});
+const InstructionSchema = new Schema({
+    step: [{ type: String }],
+});
+
 const RecipeSchema = new Schema(
     {
         recipeName: {
             type: String,
-            required: true
+            required: true,
         },
         recipeDesc: {
-            type: String
+            type: String,
         },
         servings: {
-            type: Number
+            type: Number,
         },
         duration: {
-            type: Number
+            type: Number,
         },
-        ingredients: {
-            type: Object
-            // required: true
+        ingredients: [{ type: IngredientSchema }],
+        temperature: {
+            type: TempSchema,
         },
-        instructions: {
-            type: String
-            // required: true
-        },
+        instructions: { type: InstructionSchema },
         img: {
-            type: String
+            type: String,
         },
         ownerId: {
             type: Schema.Types.ObjectId,
-            ref: "User"
-        }
+            ref: "User",
+        },
     },
     {
         timestamps: {
-            createdAt: "createdOn"
-        }
+            createdAt: "createdOn",
+        },
     }
 );
 
