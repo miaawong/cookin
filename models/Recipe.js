@@ -6,7 +6,7 @@ const IngredientSchema = new Schema({
     amount: { type: Number },
     unit: {
         type: String,
-        enum: ["tsp", "tbsp", "cup", "oz", "lbs", "g", "L", "mL", "kg"],
+        enum: ["", "tsp", "tbsp", "cup", "oz", "lb", "g", "L", "mL", "kg"],
     },
 });
 
