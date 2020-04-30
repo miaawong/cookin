@@ -55,6 +55,17 @@ const RecipeSchema = new Schema(
         },
     }
 );
-
+RecipeSchema.pre("remove", function (next) {
+    console.log("hi");
+    let recipe = this;
+    recipe
+        .model("User")
+        .updateMany(
+            { recipes: recipe._id },
+            { $pull: { recipes: recipe._id } },
+            { multi: true },
+            next
+        );
+});
 let Recipe = mongoose.model("Recipe", RecipeSchema, "recipes");
 module.exports = Recipe;
