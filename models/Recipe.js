@@ -17,9 +17,6 @@ const TempSchema = new Schema({
         enum: ["F", "C"],
     },
 });
-const InstructionSchema = new Schema({
-    step: [{ type: String }],
-});
 
 const RecipeSchema = new Schema(
     {
@@ -40,7 +37,9 @@ const RecipeSchema = new Schema(
         temperature: {
             type: TempSchema,
         },
-        instructions: { type: InstructionSchema },
+        instructions: {
+            type: [String],
+        },
         img: {
             type: String,
         },
