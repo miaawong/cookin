@@ -18,6 +18,10 @@ const TempSchema = new Schema({
     },
 });
 
+// const directionschema = new Schema({
+//     any: String,
+// });
+
 const RecipeSchema = new Schema(
     {
         recipeName: {
@@ -37,7 +41,7 @@ const RecipeSchema = new Schema(
         temperature: {
             type: TempSchema,
         },
-        instructions: {
+        directions: {
             type: [String],
         },
         img: {

@@ -12,7 +12,7 @@ const createRecipe = (req, res) => {
         duration,
         ingredients,
         temperature,
-        instructions,
+        directions,
         img,
     } = req.body;
     // find user
@@ -26,7 +26,7 @@ const createRecipe = (req, res) => {
                 duration,
                 ingredients,
                 temperature,
-                instructions,
+                directions,
                 img,
                 ownerId,
             });
