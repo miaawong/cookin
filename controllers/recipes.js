@@ -2,7 +2,20 @@ const mongoose = require("mongoose");
 const Recipe = require("../models/Recipe");
 const User = require("../models/User");
 const ObjectId = mongoose.Types.ObjectId;
+const upload = require("../services/file-upload");
+const AWS = require("aws-sdk");
+const multer = require("multer");
+const multerS3 = require("multer-s3");
+const { secretAccessKey, accessKey, region, bucket } = require("../config");
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+const uploadImage = (upload.single('file'), (req, res) => {
+    const file = req.file; 
+   
+    
+};
 const createRecipe = (req, res) => {
     console.log("creating recipe");
     const {
@@ -96,9 +109,11 @@ const deleteRecipe = (req, res) => {
             return res.status(500).json({ msg: "something went wrong" });
         });
 };
+
 module.exports = {
     createRecipe,
     updateRecipe,
     getRecipe,
     deleteRecipe,
+    uploadImage,
 };

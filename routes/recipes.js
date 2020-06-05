@@ -7,11 +7,13 @@ const {
     createRecipe,
     updateRecipe,
     getRecipe,
-    deleteRecipe
+    deleteRecipe,
+    uploadImage,
 } = require("../controllers/recipes");
 
 // post recipes
 app.post("/", passportJWT, createRecipe);
+app.post("/upload", passportJWT, uploadImage);
 // update recipes
 app.put("/:recipeId", passportJWT, updateRecipe);
 // get one project
