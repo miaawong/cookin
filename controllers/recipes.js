@@ -2,19 +2,33 @@ const mongoose = require("mongoose");
 const Recipe = require("../models/Recipe");
 const User = require("../models/User");
 const ObjectId = mongoose.Types.ObjectId;
-const upload = require("../services/file-upload");
 const AWS = require("aws-sdk");
-const multer = require("multer");
-const multerS3 = require("multer-s3");
 const { secretAccessKey, accessKey, region, bucket } = require("../config");
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const uploadImage = (req, res) => {
+    const file = req.file;
 
-const uploadImage = (upload.single('file'), (req, res) => {
-    const file = req.file; 
-   
-    
+    const s3 = new AWS.S3({
+        secretAccessKey,
+        region,
+        accessKeyId: accessKey,
+    });
+
+    const params = {
+        Bucket: bucket,
+        Key: file.originalname,
+        Body: file.buffer,
+        ContentType: file.mimetype,
+        ACL: "public-read",
+    };
+
+    s3.upload(params, (err, data) => {
+        if (err) {
+            res.status(500).json({ error: err });
+        } else {
+            res.json({ data });
+        }
+    });
 };
 const createRecipe = (req, res) => {
     console.log("creating recipe");
