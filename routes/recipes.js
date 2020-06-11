@@ -11,6 +11,7 @@ const {
     deleteRecipe,
     uploadImage,
     getAllRecipes,
+    likeRecipe,
 } = require("../controllers/recipes");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -20,6 +21,7 @@ app.get("/allrecipes", getAllRecipes);
 app.post("/upload", upload.single("file"), passportJWT, uploadImage);
 // update recipes
 app.put("/:recipeId", passportJWT, updateRecipe);
+app.put("/:recipeId/like", passportJWT, likeRecipe);
 // get one project
 app.get("/:recipeId", passportJWT, getRecipe);
 //delete a recipe
