@@ -50,6 +50,12 @@ const RecipeSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "User",
         },
+        likes: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "User",
+            },
+        ],
     },
     {
         timestamps: {
@@ -58,7 +64,6 @@ const RecipeSchema = new Schema(
     }
 );
 RecipeSchema.pre("remove", function (next) {
-    console.log("hi");
     let recipe = this;
     recipe
         .model("User")
