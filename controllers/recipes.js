@@ -123,6 +123,15 @@ const deleteRecipe = (req, res) => {
             return res.status(500).json({ msg: "something went wrong" });
         });
 };
+const getAllRecipes = (req, res) => {
+    Recipe.find()
+        .then((all) => {
+            res.json({ all });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
 
 module.exports = {
     createRecipe,
@@ -130,4 +139,5 @@ module.exports = {
     getRecipe,
     deleteRecipe,
     uploadImage,
+    getAllRecipes,
 };

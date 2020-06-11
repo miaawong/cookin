@@ -10,11 +10,13 @@ const {
     getRecipe,
     deleteRecipe,
     uploadImage,
+    getAllRecipes,
 } = require("../controllers/recipes");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 // post recipes
 app.post("/", passportJWT, createRecipe);
+app.get("/allrecipes", getAllRecipes);
 app.post("/upload", upload.single("file"), passportJWT, uploadImage);
 // update recipes
 app.put("/:recipeId", passportJWT, updateRecipe);
