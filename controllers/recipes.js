@@ -154,6 +154,33 @@ const likeRecipe = (req, res) => {
             console.log("hey u aint suppose to be here", err);
         });
 };
+const unlikeRecipe = (req, res) => {
+    console.log("unlikee");
+    // do i need to find userbyid? to double check that i have the right user?
+    User.findById(req.user.id)
+        .then((user) => {
+            console.log("finding rcipe");
+            Recipe.findByIdAndUpdate(
+                req.params.recipeId,
+
+                {
+                    $pull: { likes: { $in: [user.id] } },
+                },
+                { new: true }
+            )
+                .then((recipe) => {
+                    console.log(recipe);
+                    recipe.save(recipe.likes);
+                    res.json(recipe.likes);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        })
+        .catch((err) => {
+            console.log("hey u aint suppose to be here", err);
+        });
+};
 
 module.exports = {
     createRecipe,
@@ -163,4 +190,5 @@ module.exports = {
     uploadImage,
     getAllRecipes,
     likeRecipe,
+    unlikeRecipe,
 };
