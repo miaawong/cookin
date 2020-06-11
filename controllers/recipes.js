@@ -82,7 +82,6 @@ const createRecipe = (req, res) => {
 };
 const updateRecipe = (req, res) => {
     Recipe.findByIdAndUpdate(
-        // need to figure out how to get id into params
         req.params.recipeId,
         { $set: { ...req.body } },
         { new: true }
@@ -132,6 +131,29 @@ const getAllRecipes = (req, res) => {
             console.log(err);
         });
 };
+const likeRecipe = (req, res) => {
+    // do i need to find userbyid? to double check that i have the right user?
+    User.findById(req.user.id)
+        .then((user) => {
+            Recipe.findByIdAndUpdate(
+                req.params.recipeId,
+                { $set: { ...req.body } },
+                { new: true }
+            )
+                .then((recipe) => {
+                    recipe.likes.push(ObjectId(user.id));
+                    recipe.save().then((data) => {
+                        res.json(data.likes);
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        })
+        .catch((err) => {
+            console.log("hey u aint suppose to be here", err);
+        });
+};
 
 module.exports = {
     createRecipe,
@@ -140,4 +162,5 @@ module.exports = {
     deleteRecipe,
     uploadImage,
     getAllRecipes,
+    likeRecipe,
 };
