@@ -43,8 +43,8 @@ const createRecipe = (req, res) => {
         img,
     } = req.body;
     // find user
-    User.findById(req.user.id).then((user) => {
-        if (user) {
+    User.findById(req.user.id)
+        .then((user) => {
             let ownerId = req.user.id;
             const newRecipe = new Recipe({
                 recipeName,
@@ -64,21 +64,18 @@ const createRecipe = (req, res) => {
                     user.recipes.push(ObjectId(recipe.id));
                     user.save().then((user) => {
                         res.json({
-                            user,
-                            recipes: {
-                                recipeId: recipe.id,
-                            },
+                            user: user.name,
                             recipe,
                         });
                     });
                 })
                 .catch((err) => {
-                    console.log(err);
+                    console.log(err, "couldn't save recipe");
                 });
-        } else {
-            res.status(402).json({ msg: "you're not logged in" });
-        }
-    });
+        })
+        .catch((err) => {
+            console.log(err, "couldn't find user");
+        });
 };
 const updateRecipe = (req, res) => {
     Recipe.findByIdAndUpdate(
@@ -94,14 +91,19 @@ const updateRecipe = (req, res) => {
         });
 };
 const getRecipe = (req, res) => {
-    console.log("getting recipe");
     Recipe.findById(req.params.recipeId)
         .then((recipe) => {
-            console.log(recipe);
-            return res.json({ msg: "recipe", recipe });
+            User.findById(recipe.ownerId)
+                .then((user) => {
+                    console.log(recipe);
+                    return res.json({ user: user.name, recipe });
+                })
+                .catch((err) => {
+                    console.log(err, "could not find recipe owner");
+                });
         })
         .catch((err) => {
-            console.log(err, "getrecipe err");
+            console.log(err, "could not get recipe");
             res.status(403).json({
                 errMsg: "Oops, you're not allowed to see that, please login",
             });
@@ -155,11 +157,9 @@ const likeRecipe = (req, res) => {
         });
 };
 const unlikeRecipe = (req, res) => {
-    console.log("unlikee");
     // do i need to find userbyid? to double check that i have the right user?
     User.findById(req.user.id)
         .then((user) => {
-            console.log("finding rcipe");
             Recipe.findByIdAndUpdate(
                 req.params.recipeId,
 
