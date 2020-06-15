@@ -145,7 +145,7 @@ const likeRecipe = (req, res) => {
                 .then((recipe) => {
                     recipe.likes.push(ObjectId(user.id));
                     recipe.save().then((data) => {
-                        res.json(data.likes);
+                        res.json(data);
                     });
                 })
                 .catch((err) => {
@@ -171,7 +171,7 @@ const unlikeRecipe = (req, res) => {
                 .then((recipe) => {
                     console.log(recipe);
                     recipe.save(recipe.likes);
-                    res.json(recipe.likes);
+                    res.json(recipe);
                 })
                 .catch((err) => {
                     console.log(err);
