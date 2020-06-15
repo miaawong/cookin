@@ -3,9 +3,11 @@ const Schema = mongoose.Schema;
 
 const IngredientSchema = new Schema({
     ingName: { type: String },
+
     amount: { type: String },
     unit: {
-        type: String,
+        value: { type: String },
+        label: { type: String },
     },
 });
 
