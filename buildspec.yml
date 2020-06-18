@@ -1,0 +1,14 @@
+version: 0.2
+
+phases:
+    install:
+        commands:
+            - curl -sL https://deb.nodesource.com/setup_12.x | bash -
+            - apt install -y nodejs
+            - npm install
+    build:
+        commands:
+            - cd ./client && npm install && npm run build
+artifacts:
+    files:
+        - "**/*"
