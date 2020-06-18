@@ -29,7 +29,7 @@ app.get("/", (req, res) => res.send("App connected"));
 app.use("/api", require("./routes/routes"));
 app.use(express.static("client/build"));
 app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    res.sendFile("./client/build/index.html");
 });
 app.listen(port, (err) => {
     console.log(`Server live on port: ${port}`);
