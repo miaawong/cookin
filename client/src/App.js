@@ -83,15 +83,15 @@ const Logo = styled.img`
 const App = ({ JWToken }) => {
     const dispatch = useDispatch();
     const [loggedIn, setLogged] = useState(false);
-    useEffect(() => {
-        if (!JWToken) {
-            dispatch(getJWT()).then((JWToken) => {
-                JWToken === "undefined" && console.log("undefined");
-            });
-        }
-        JWToken ? setLogged(true) : setLogged(false);
-        //eslint-disable-next-line
-    }, [JWToken]);
+    // useEffect(() => {
+    //     if (!JWToken) {
+    //         dispatch(getJWT()).then((JWToken) => {
+    //             JWToken === "undefined" && console.log("undefined");
+    //         });
+    //     }
+    //     JWToken ? setLogged(true) : setLogged(false);
+    //     //eslint-disable-next-line
+    // }, [JWToken]);
 
     return (
         <Router>
