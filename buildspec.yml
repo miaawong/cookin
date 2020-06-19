@@ -6,7 +6,7 @@ phases:
             - npm install
     build:
         commands:
-            - cd ./client && npm install && npm run production
+            - npm install && npm run production
 artifacts:
     files:
-        - "**/*"
+        - ./client
