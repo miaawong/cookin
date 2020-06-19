@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7e615ff4.chunk.css",
+    "main.js": "/static/js/main.b91d2ef2.chunk.js",
+    "main.js.map": "/static/js/main.b91d2ef2.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.cfae3202.js",
+    "runtime-main.js.map": "/static/js/runtime-main.cfae3202.js.map",
+    "static/js/2.7538e0ca.chunk.js": "/static/js/2.7538e0ca.chunk.js",
+    "static/js/2.7538e0ca.chunk.js.map": "/static/js/2.7538e0ca.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.b1119b76138ad31f598aeb272c9c489b.js": "/precache-manifest.b1119b76138ad31f598aeb272c9c489b.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.7e615ff4.chunk.css.map": "/static/css/main.7e615ff4.chunk.css.map",
+    "static/js/2.7538e0ca.chunk.js.LICENSE.txt": "/static/js/2.7538e0ca.chunk.js.LICENSE.txt",
+    "static/media/Creamy-Salmon-Pasta-with-Spinach-2.jpg": "/static/media/Creamy-Salmon-Pasta-with-Spinach-2.7f27f338.jpg",
+    "static/media/blankimage.jpg": "/static/media/blankimage.b8c3f81d.jpg",
+    "static/media/cover.png": "/static/media/cover.d59aa53e.png",
+    "static/media/munchies.png": "/static/media/munchies.9b135b6b.png",
+    "static/media/ramen.png": "/static/media/ramen.cdad9470.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cfae3202.js",
+    "static/js/2.7538e0ca.chunk.js",
+    "static/css/main.7e615ff4.chunk.css",
+    "static/js/main.b91d2ef2.chunk.js"
+  ]
+}

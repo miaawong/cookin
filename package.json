@@ -6,7 +6,7 @@
     "scripts": {
         "start": "node app.js",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "production": "cd ./client && npm i && npm run build"
+        "production": "sudo cd ./client && sudo npm i && sudo npm run build"
     },
     "author": "",
     "license": "ISC",
