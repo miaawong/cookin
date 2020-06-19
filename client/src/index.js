@@ -26,12 +26,22 @@ axios.interceptors.response.use(
         return config;
     },
     (error) => {
-        return Promise.resolve(
-            store.dispatch(getJWT()).then((token) => {
-                error.config.headers["Authorization"] = `Bearer ${token}`;
-                return Axios.request(error.config);
-            })
-        );
+        const originalRequest = error.config;
+        if (error.response.status === 401 && !originalRequest._retry) {
+            console.log("error intercepted", error);
+            originalRequest._retry = true;
+            return Promise.resolve(
+                store.dispatch(getJWT()).then((token) => {
+                    error.config.headers["Authorization"] = `Bearer ${token}`;
+
+                    return axios.request(originalRequest);
+                })
+            );
+        } else {
+            // return Error object with Promise
+            console.log("promise rejected");
+            return Promise.reject(error);
+        }
     }
 );
 
