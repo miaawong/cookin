@@ -71,7 +71,7 @@ const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
     let createdYear = new Date(createdOn).getFullYear();
 
     return (
-        <Main loggedIn={loggedIn}>
+        <Main JWToken={JWToken}>
             <Description>
                 <RecipeName>
                     {recipeName}

@@ -9,11 +9,11 @@ export const Main = styled.div`
     flex-direction: column;
 
     @media ${device.laptop} {
-        width: 96%;
+        width: ${({ JWToken }) => (JWToken ? "96%" : "100%")};
     }
 
     @media ${device.wide} {
-        width: 97%;
+        width: ${({ JWToken }) => (JWToken ? "97%" : "100%")};
     }
 `;
 export const Description = styled.div`
