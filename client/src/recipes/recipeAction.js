@@ -31,7 +31,10 @@ export const getAllRecipes = (token) => {
         };
 
         axios
-            .get("http://localhost:3000/api/users/recipes", config)
+            .get(
+                "http://cookin-env-1.eba-cvmkzrir.us-east-1.elasticbeanstalk.com/api/users/recipes",
+                config
+            )
             .then((res) => {
                 let recipes = res.data.recipe;
                 dispatch({
@@ -108,7 +111,11 @@ export const createRecipe = (token, data, history) => {
         };
 
         axios
-            .post("http://localhost:3000/api/recipes/", draftRecipe, config)
+            .post(
+                "http://cookin-env-1.eba-cvmkzrir.us-east-1.elasticbeanstalk.com/api/recipes/",
+                draftRecipe,
+                config
+            )
             .then((res) => {
                 let recipeId = res.data.recipe._id;
                 let recipe = res.data.recipe;
@@ -154,7 +161,7 @@ export const editRecipe = (recipeId, data, token, history) => {
 
         return axios
             .put(
-                `http://localhost:3000/api/recipes/${recipeId}`,
+                `http://cookin-env-1.eba-cvmkzrir.us-east-1.elasticbeanstalk.com/api/recipes/${recipeId}`,
                 updateRecipe,
                 config
             )
@@ -180,7 +187,10 @@ export const getCurrentRecipe = (recipeId, token, history) => {
             },
         };
         axios
-            .get(`http://localhost:3000/api/recipes/${recipeId}`, config)
+            .get(
+                `http://cookin-env-1.eba-cvmkzrir.us-east-1.elasticbeanstalk.com/api/recipes/${recipeId}`,
+                config
+            )
             .then((res) => {
                 let recipe = res.data.recipe;
                 recipe.creator = res.data.user;
@@ -204,7 +214,10 @@ export const deleteRecipe = (recipeId, token, history) => {
             },
         };
         axios
-            .delete(`http://localhost:3000/api/recipes/${recipeId}`, config)
+            .delete(
+                `http://cookin-env-1.eba-cvmkzrir.us-east-1.elasticbeanstalk.com/api/recipes/${recipeId}`,
+                config
+            )
             .then((res) => {
                 history.push("/dashboard");
             })
@@ -227,7 +240,11 @@ export const uploadImage = (file, token) => {
         data.append("file", uploadFile);
         data.append("originalname", originalname);
         return axios
-            .post(`http://localhost:3000/api/recipes/upload`, data, config)
+            .post(
+                `http://cookin-env-1.eba-cvmkzrir.us-east-1.elasticbeanstalk.com/api/recipes/upload`,
+                data,
+                config
+            )
             .then((res) => {
                 return res.data.data.Location;
             })
@@ -254,7 +271,7 @@ export const likeRecipe = (recipeId, token) => {
 
         axios
             .put(
-                `http://localhost:3000/api/recipes/${recipeId}/like`,
+                `http://cookin-env-1.eba-cvmkzrir.us-east-1.elasticbeanstalk.com/api/recipes/${recipeId}/like`,
                 null,
                 config
             )
@@ -280,7 +297,7 @@ export const unlikeRecipe = (recipeId, token) => {
 
         axios
             .put(
-                `http://localhost:3000/api/recipes/${recipeId}/unlike`,
+                `http://cookin-env-1.eba-cvmkzrir.us-east-1.elasticbeanstalk.com/api/recipes/${recipeId}/unlike`,
                 null,
                 config
             )
