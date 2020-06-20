@@ -25,7 +25,7 @@ app.put("/:recipeId", passportJWT, updateRecipe);
 app.put("/:recipeId/like", passportJWT, likeRecipe);
 app.put("/:recipeId/unlike", passportJWT, unlikeRecipe);
 // get one project
-app.get("/:recipeId", passportJWT, getRecipe);
+app.get("/:recipeId", getRecipe);
 //delete a recipe
 app.delete("/:recipeId", passportJWT, deleteRecipe);
 module.exports = app;
