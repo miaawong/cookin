@@ -4,7 +4,9 @@ import axios from "axios";
 export const exploreRecipes = () => {
     return (dispatch) => {
         return axios
-            .get("http://localhost:3000/api/recipes/allRecipes")
+            .get(
+                "http://cookin-env-1.eba-cvmkzrir.us-east-1.elasticbeanstalk.com/api/recipes/allRecipes"
+            )
             .then((res) => {
                 let recipes = res.data.all;
                 dispatch({
