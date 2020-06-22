@@ -5,7 +5,7 @@ export const theme = {
     },
     font: "Roboto",
     fontSizes: {
-        small: "18px",
+        small: "20px",
         medium: "24px",
         large: "30px",
         XL: "36px",

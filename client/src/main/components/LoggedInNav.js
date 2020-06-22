@@ -77,7 +77,8 @@ const Nav = styled.nav`
     }
 
     @media ${device.large}, ${device.ipad} {
-        height: 5rem;
+        /* height: 5rem; */
+        bottom: 9%;
     }
 `;
 export default function LoggedInNav() {

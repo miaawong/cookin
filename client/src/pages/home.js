@@ -29,9 +29,15 @@ const Box = styled.div`
         border: none;
         margin: 0;
         width: 100%;
-        height: 52%;
+        top: 7rem;
         position: fixed;
     }
+`;
+
+const StyledMain = styled(Main)`
+    height: 80%;
+    width: ${(JWToken) => (JWToken === " " ? "97%" : "100%")};
+    margin: 0;
 `;
 const MainText = styled.div`
     font-family: ${(props) => props.theme.font};
@@ -45,49 +51,41 @@ const MainText = styled.div`
     align-content: center;
     padding: 2rem;
 
-    @media ${device.small}, ${device.medium} {
-        font-size: ${(props) => props.theme.fontSizes.medium};
+    @media ${device.small}, ${device.medium}, ${device.large}, ${device.ipad} {
         padding: 1rem;
         width: 100%;
         position: fixed;
         bottom: 4rem;
-        height: 30%;
+        height: 29%;
         background: #ffda0b;
     }
     @media ${device.medium} {
-        font-size: ${(props) => props.theme.fontSizes.medium};
         padding: 1rem 2rem;
     }
     @media ${device.large} {
-        font-size: ${(props) => props.theme.fontSizes.large};
-        width: 100%;
-        position: fixed;
-        bottom: 4rem;
         height: 35%;
-        background: #ffda0b;
         padding: 3rem 2rem;
     }
     @media ${device.ipad} {
         font-size: ${(props) => props.theme.fontSizes.large};
-        width: 100%;
-        position: fixed;
-        bottom: 10.8rem;
-        height: 28%;
-        background: #ffda0b;
+        bottom: 11rem;
+        height: 23%;
         padding: 3rem 2rem;
     }
 `;
 
 const StyledLink = styled(Link)`
-    font-size: ${(props) => props.theme.fontSizes.medium};
+    font-size: ${(props) => props.theme.fontSizes.large};
+    font-weight: 600;
     text-decoration: none;
-    width: 8rem;
-    color: white;
-    background: black;
+    width: 10rem;
+    color: black;
+    background: ${(props) => props.theme.colors.yellow};
     padding: 0.5rem;
-    margin: 2em 0;
+    margin: 2rem auto;
     display: flex;
     justify-content: center;
+    border-radius: 5px;
     cursor: pointer;
     & > label {
         cursor: pointer;
@@ -95,15 +93,13 @@ const StyledLink = styled(Link)`
         letter-spacing: 1px;
     }
 
-    @media ${device.small} {
+    @media ${device.small}, ${device.medium}, ${device.large}, ${device.ipad} {
         font-size: ${(props) => props.theme.fontSizes.small};
         margin: 1.5rem auto 0 auto;
+        background: black;
+        color: white;
     }
-    @media ${device.medium} {
-        font-size: ${(props) => props.theme.fontSizes.medium};
-        margin: 2rem auto 0 auto;
-    }
-    @media ${device.large} {
+    @media ${device.medium}, ${device.large}, ${device.ipad} {
         font-size: ${(props) => props.theme.fontSizes.medium};
         margin: 0 auto;
     }
@@ -140,55 +136,61 @@ const Yellow = styled.div`
 `;
 const MainImg = styled.img`
     width: 90%;
-    max-height: 90%;
     object-fit: cover;
     @media ${device.small} {
         width: 100%;
-        max-height: 65%;
+        height: 51%;
+        position: fixed;
+        top: 13%;
     }
-    @media ${device.medium} {
+    @media ${device.medium}, ${device.large}, ${device.ipad} {
         width: 100%;
+        height: 56%;
+        position: fixed;
+        top: 10%;
     }
-    @media ${device.large} {
-        width: 100%;
+    @media ${device.large}, ${device.ipad} {
+        top: 9%;
+    }
+
+    @media ${device.laptop}, ${device.wide} {
+        max-height: 80%;
     }
 `;
 const Text = styled.p`
     font-size: ${(props) => props.theme.fontSizes.large};
-    margin: 0.2em;
+    margin: 0em;
     @media ${device.small} {
-        font-size: ${(props) => props.theme.fontSizes.medium};
+        font-size: ${(props) => props.theme.fontSizes.small};
+        text-align: center;
         margin: 0.2em;
     }
-    @media ${device.medium} {
+    @media ${device.medium}, ${device.large}, ${device.ipad} {
+        text-align: center;
         font-size: ${(props) => props.theme.fontSizes.medium};
         margin: 0.1em;
     }
-    @media ${device.large}, ${device.ipad} {
-        margin: 0;
-    }
 `;
-export default function Home({ loggedIn }) {
+export default function Home({ JWToken }) {
     return (
-        <Main
-            loggedIn={loggedIn}
-            style={{ height: "88%", width: "97%", margin: 0 }}
-        >
-            <Box loggedIn={loggedIn}>
+        <StyledMain JWToken={JWToken}>
+            <Box>
                 <MainText>
                     <Text>What's cookin' for dinner? </Text>
                     <Text>Get inspired, </Text>
                     <Text>Store your recipes,</Text>
                     <Text>All in one place.</Text>
-                    <StyledLink to="/explore">
-                        <label>Recipes</label>
-                    </StyledLink>
+                    <div style={{ width: "100%" }}>
+                        <StyledLink to="/explore">
+                            <label>Recipes</label>
+                        </StyledLink>
+                    </div>
                 </MainText>
 
                 <Yellow>
                     <MainImg src={pasta} alt="pasta" />
                 </Yellow>
             </Box>
-        </Main>
+        </StyledMain>
     );
 }

@@ -109,27 +109,34 @@ const Explore = ({ JWToken, userId, recipes, loggedIn }) => {
 
                 <DescriptionBox>
                     <RecipeName>
-                        {" "}
-                        {likes.indexOf(userId) === -1 ? (
-                            <FavoriteBtn
-                                onClick={() =>
-                                    dispatch(likeRecipe(_id, JWToken))
-                                }
-                            >
-                                <FaRegHeart size={30} />
-                            </FavoriteBtn>
+                        {JWToken ? (
+                            likes.indexOf(userId) === -1 ? (
+                                <FavoriteBtn
+                                    onClick={() =>
+                                        dispatch(likeRecipe(_id, JWToken))
+                                    }
+                                >
+                                    <FaRegHeart size={30} />
+                                </FavoriteBtn>
+                            ) : (
+                                <FavoriteBtn
+                                    onClick={() =>
+                                        dispatch(unlikeRecipe(_id, JWToken))
+                                    }
+                                >
+                                    <FaHeart
+                                        style={{
+                                            color: "#FB170A",
+                                        }}
+                                        size={30}
+                                    />
+                                </FavoriteBtn>
+                            )
                         ) : (
                             <FavoriteBtn
-                                onClick={() =>
-                                    dispatch(unlikeRecipe(_id, JWToken))
-                                }
+                                onClick={() => history.push("/signup")}
                             >
-                                <FaHeart
-                                    style={{
-                                        color: "#FB170A",
-                                    }}
-                                    size={30}
-                                />
+                                <FaRegHeart size={30} />
                             </FavoriteBtn>
                         )}
                         {recipeName}
@@ -141,9 +148,7 @@ const Explore = ({ JWToken, userId, recipes, loggedIn }) => {
                     </Description>
                     <StyledLink
                         onClick={() => {
-                            dispatch(
-                                getCurrentRecipe(recipe._id, JWToken, history)
-                            );
+                            dispatch(getCurrentRecipe(recipe._id, history));
                         }}
                     >
                         <label>Recipe</label>

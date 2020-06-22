@@ -16,9 +16,7 @@ const UserRecipes = ({ recipes, JWToken }) => {
             <li key={recipe._id}>
                 <button
                     onClick={() => {
-                        dispatch(
-                            getCurrentRecipe(recipe._id, JWToken, history)
-                        );
+                        dispatch(getCurrentRecipe(recipe._id, history));
                     }}
                 >
                     {recipe.recipeName}
