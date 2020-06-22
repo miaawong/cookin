@@ -20,7 +20,7 @@ export const exploreRecipes = () => {
     };
 };
 
-export const getAllRecipes = (token) => {
+export const getAllUserRecipes = (token) => {
     return (dispatch) => {
         const config = {
             headers: {
@@ -166,15 +166,10 @@ export const editRecipe = (recipeId, data, token, history) => {
     };
 };
 
-export const getCurrentRecipe = (recipeId, token, history) => {
+export const getCurrentRecipe = (recipeId, history) => {
     return (dispatch) => {
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        };
         axios
-            .get(`/api/recipes/${recipeId}`, config)
+            .get(`/api/recipes/${recipeId}`)
             .then((res) => {
                 let recipe = res.data.recipe;
                 recipe.creator = res.data.user;

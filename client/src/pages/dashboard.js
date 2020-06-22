@@ -3,12 +3,12 @@ import { connect, useDispatch } from "react-redux";
 // import RecipesList from "../recipes/components/recipe/RecipesList";
 import RecipeCard from "../recipes/components/recipe/RecipeCard";
 import { Redirect } from "react-router-dom";
-import { getAllRecipes } from "../recipes/recipeAction.js";
+import { getAllUserRecipes } from "../recipes/recipeAction.js";
 
 const Dashboard = ({ name, id, JWToken, recipes, loggedIn }) => {
     const dispatch = useDispatch();
     useEffect(() => {
-        JWToken && dispatch(getAllRecipes(JWToken));
+        JWToken && dispatch(getAllUserRecipes(JWToken));
         //eslint-disable-next-line
     }, []);
     if (!id) {
