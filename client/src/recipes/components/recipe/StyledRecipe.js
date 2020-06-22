@@ -18,7 +18,6 @@ export const Main = styled.div`
 `;
 export const Description = styled.div`
     width: 100%;
-    height: 100%;
     font-size: ${(props) => props.theme.fontSizes.small};
     padding: 1rem;
     background: ${(props) => props.theme.colors.yellow};
@@ -33,7 +32,6 @@ export const Description = styled.div`
 `;
 export const Middle = styled.div`
     width: 100%;
-    height: 100%;
     align-self: center;
     padding: 1rem;
     order: 3;
@@ -54,11 +52,10 @@ export const ImgContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    order: 1;
+    height: 69%;
     justify-content: center;
 `;
 export const Image = styled.img`
-    object-fit: contain;
     width: 100%;
     height: 100%;
 `;
