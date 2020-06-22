@@ -75,22 +75,33 @@ const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
             <Description>
                 <RecipeName>
                     {recipeName}
-                    {likes.indexOf(userId) === -1 ? (
-                        <FavoriteBtn
-                            onClick={() => dispatch(likeRecipe(_id, JWToken))}
-                        >
-                            <FaRegHeart size={30} />
-                        </FavoriteBtn>
+
+                    {JWToken ? (
+                        likes.indexOf(userId) === -1 ? (
+                            <FavoriteBtn
+                                onClick={() =>
+                                    dispatch(likeRecipe(_id, JWToken))
+                                }
+                            >
+                                <FaRegHeart size={30} />
+                            </FavoriteBtn>
+                        ) : (
+                            <FavoriteBtn
+                                onClick={() =>
+                                    dispatch(unlikeRecipe(_id, JWToken))
+                                }
+                            >
+                                <FaHeart
+                                    style={{
+                                        color: "#FB170A",
+                                    }}
+                                    size={30}
+                                />
+                            </FavoriteBtn>
+                        )
                     ) : (
-                        <FavoriteBtn
-                            onClick={() => dispatch(unlikeRecipe(_id, JWToken))}
-                        >
-                            <FaHeart
-                                style={{
-                                    color: "#FB170A",
-                                }}
-                                size={30}
-                            />
+                        <FavoriteBtn onClick={() => history.push("/signup")}>
+                            <FaRegHeart size={30} />
                         </FavoriteBtn>
                     )}
                 </RecipeName>
