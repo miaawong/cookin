@@ -1,15 +1,11 @@
-// require("dotenv").config({ path: ".env.development" });
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const { db, port } = require("./config");
-// const cors = require("cors");
 
-//
 const app = express();
 // a method inbuilt in express to recognize the incoming request object as a JSON object.
 app.use(express.json());
-// app.use(cors());
 
 //allow CORS
 app.use(function (req, res, next) {
