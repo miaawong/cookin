@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as recipeActionTypes from "../../recipeActionTypes";
@@ -23,6 +24,11 @@ import {
     DeleteBtn,
     DeleteRow,
 } from "./StyledRecipe";
+
+const RecipeMain = styled(Main)`
+    height: 100%;
+    width: 100%;
+`;
 
 const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
     const [deleteModal, setDeleteModal] = useState(false);
@@ -71,7 +77,17 @@ const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
     let createdYear = new Date(createdOn).getFullYear();
 
     return (
-        <Main JWToken={JWToken}>
+        <RecipeMain
+            JWToken={JWToken}
+            // style={{ height: "100%", width: "100%" }}
+        >
+            <ImgContainer>
+                <Image
+                    alt={recipeName}
+                    src={img}
+                    style={{ position: "relative" }}
+                />
+            </ImgContainer>
             <Description>
                 <RecipeName>
                     {recipeName}
@@ -122,10 +138,12 @@ const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
                             justifyContent: "space-between",
                         }}
                     >
-                        <p>Serves {servings}</p>
+                        <p>Serves: {`${servings} people`}</p>
 
                         <p>
-                            Time: {duration_hour}hr {duration_mins}mins
+                            Time:{" "}
+                            {!isNaN(duration_hour) && `${duration_hour} hr`}{" "}
+                            {!isNaN(duration_mins) && `${duration_mins} mins`}
                         </p>
                     </div>
                     <div
@@ -220,14 +238,7 @@ const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
                         <p key={index}> - {step}</p>
                     ))}
             </Middle>
-            <ImgContainer>
-                <Image
-                    alt={recipeName}
-                    src={img}
-                    style={{ position: "relative" }}
-                />
-            </ImgContainer>
-        </Main>
+        </RecipeMain>
     );
 };
 
