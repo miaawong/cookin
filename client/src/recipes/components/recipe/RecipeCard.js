@@ -124,9 +124,7 @@ const RecipeCard = ({ userId, recipes, JWToken, loggedIn }) => {
                     </Description>
                     <StyledLink
                         onClick={() => {
-                            dispatch(
-                                getCurrentRecipe(recipe._id, JWToken, history)
-                            );
+                            dispatch(getCurrentRecipe(recipe._id, history));
                         }}
                     >
                         <label>Recipe</label>
