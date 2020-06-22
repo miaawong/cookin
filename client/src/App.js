@@ -21,14 +21,15 @@ const Theme = styled.div`
 `;
 
 const Nav = styled.div`
-    height: 10%;
+    height: 5rem;
     width: 20%;
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 2.5rem;
     padding: 2rem 0;
-
-    @media ${device.small}, ${device.medium}, ${device.large} {
+    z-index: 1;
+    @media ${device.small}, ${device.medium}, ${device.large}, ${device.ipad} {
+        position: fixed;
         background: black;
         bottom: 0;
         left: 0;
@@ -39,13 +40,7 @@ const Nav = styled.div`
     }
 
     @media ${device.ipad} {
-        background: black;
         bottom: 7.9rem;
-        left: 0;
-        top: auto;
-        width: 100%;
-        height: 4rem;
-        padding: 0;
     }
 `;
 const Label = styled.label`
@@ -82,7 +77,7 @@ const Logo = styled.img`
 
 const App = ({ JWToken }) => {
     const dispatch = useDispatch();
-    const [loggedIn, setLogged] = useState(false);
+
     // useEffect(() => {
     //     if (!JWToken) {
     //         dispatch(getJWT()).then((JWToken) => {
@@ -136,31 +131,31 @@ const App = ({ JWToken }) => {
             </Theme>
             <Switch>
                 <Route exact path="/explore">
-                    <Explore loggedIn={loggedIn} />
+                    <Explore JWToken={JWToken} />
                 </Route>
                 <Route exact path="/">
-                    <Home loggedIn={loggedIn} />
+                    <Home JWToken={JWToken} />
                 </Route>
                 <Route exact path="/signup">
-                    <SignUp loggedIn={loggedIn} />
+                    <SignUp JWToken={JWToken} />
                 </Route>
                 <Route exact path="/login">
-                    <Login loggedIn={loggedIn} />
+                    <Login JWToken={JWToken} />
                 </Route>
                 <Route exact path="/dashboard">
-                    <Dashboard loggedIn={loggedIn} />
+                    <Dashboard JWToken={JWToken} />
                 </Route>
                 <Route
                     exact
                     path="/addRecipe"
                     component={CreateRecipe}
-                    loggedIn={loggedIn}
+                    JWToken={JWToken}
                 ></Route>
                 <Route exact path={"/recipes/:recipeId"}>
-                    <Recipe loggedIn={loggedIn} />
+                    <Recipe JWToken={JWToken} />
                 </Route>
                 <Route exact path="/settings">
-                    <Settings loggedIn={loggedIn} />
+                    <Settings JWToken={JWToken} />
                 </Route>
             </Switch>
         </Router>
