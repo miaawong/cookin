@@ -8,11 +8,7 @@ export const signUp = (data, history) => {
             },
         };
         axios
-            .post(
-                "http://cookin-env-1.eba-cvmkzrir.us-east-1.elasticbeanstalk.com/api/auth/",
-                data,
-                config
-            )
+            .post("/api/auth/", data, config)
             .then((res) => {
                 let { _id, name, email } = res.data.newUser;
                 let { token, refreshToken } = res.data;
@@ -41,11 +37,7 @@ export const login = (data) => {
             },
         };
         axios
-            .post(
-                "http://cookin-env-1.eba-cvmkzrir.us-east-1.elasticbeanstalk.com/api/auth/login",
-                data,
-                config
-            )
+            .post("/api/auth/login", data, config)
             .then((res) => {
                 console.log(res.data);
                 let { token, refreshToken } = res.data;
@@ -71,13 +63,9 @@ export const login = (data) => {
 export const getJWT = () => {
     return (dispatch) => {
         return axios
-            .post(
-                "http://cookin-env-1.eba-cvmkzrir.us-east-1.elasticbeanstalk.com/api/auth/refresh_token",
-                null,
-                {
-                    withCredentials: true,
-                }
-            )
+            .post("/api/auth/refresh_token", null, {
+                withCredentials: true,
+            })
             .then((res) => {
                 let { JWToken, _id, name, email } = res.data;
 
@@ -101,11 +89,7 @@ export const getJWT = () => {
 export const logout = () => {
     return (dispatch) => {
         axios
-            .post(
-                "http://cookin-env-1.eba-cvmkzrir.us-east-1.elasticbeanstalk.com/api/auth/logout",
-                {},
-                { withCredentials: true }
-            )
+            .post("/api/auth/logout", {}, { withCredentials: true })
             .then((res) => {
                 console.log(res);
                 dispatch({
