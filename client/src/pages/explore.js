@@ -158,7 +158,7 @@ const Explore = ({ JWToken, userId, recipes, loggedIn }) => {
         );
     });
     return (
-        <Main loggedIn={loggedIn}>
+        <Main JWToken={JWToken}>
             <div style={{ width: "100%" }}>
                 <ProgressLabel>Explore</ProgressLabel>
             </div>
