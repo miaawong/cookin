@@ -13,10 +13,11 @@ export const ProgressLabel = styled.h1`
 export const Main = styled.div`
     display: flex;
     flex-direction: column;
+
     width: 80%;
-    height: 79%;
+    height: 70%;
     font-family: ${(props) => props.theme.font};
-    margin: 0 auto;
+    margin: 2rem auto;
     text-align: left;
 `;
 
@@ -53,6 +54,10 @@ export const TextInput = styled.input`
     height: 3rem;
     padding: 0.5rem;
     border: 1px solid black;
+    @media ${device.small} {
+        font-size: ${(props) => props.theme.fontSizes.small};
+        height: 2rem;
+    }
 `;
 export const TextArea = styled.textarea`
     border-radius: 8px;
@@ -74,6 +79,10 @@ export const Submit = styled.button`
     padding: 0.5rem;
     float: right;
     border: none;
+    border-radius: 8px;
+    @media ${device.small} {
+        font-size: ${(props) => props.theme.fontSizes.small};
+    }
 `;
 
 export const HourMinute = styled.div`
