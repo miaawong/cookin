@@ -39,38 +39,46 @@ const StyledMain = styled(Main)`
     width: ${(JWToken) => (JWToken === " " ? "97%" : "100%")};
     margin: 0;
 `;
+const Left = styled.div`
+    width: 50%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    @media ${device.small}, ${device.medium}, ${device.large} {
+        width: 100%;
+        position: fixed;
+        bottom: 3rem;
+        height: 30%;
+        background: #ffda0b;
+        padding: 1rem;
+    }
+    @media ${device.medium}, ${device.large} {
+        height: 30.5%;
+    }
+    @media ${device.ipad} {
+        height: 23%;
+        bottom: 11.5rem;
+    }
+`;
 const MainText = styled.div`
     font-family: ${(props) => props.theme.font};
-    background: white;
-    width: 50%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: left;
     align-content: center;
     padding: 2rem;
-
     @media ${device.small}, ${device.medium}, ${device.large}, ${device.ipad} {
-        padding: 1rem;
+        padding: 0rem;
         width: 100%;
-        position: fixed;
-        bottom: 4rem;
-        height: 29%;
-        background: #ffda0b;
     }
     @media ${device.medium} {
-        padding: 1rem 2rem;
     }
     @media ${device.large} {
-        height: 35%;
-        padding: 3rem 2rem;
     }
     @media ${device.ipad} {
         font-size: ${(props) => props.theme.fontSizes.large};
-        bottom: 11rem;
-        height: 23%;
-        padding: 3rem 2rem;
     }
 `;
 
@@ -82,10 +90,11 @@ const StyledLink = styled(Link)`
     color: black;
     background: ${(props) => props.theme.colors.yellow};
     padding: 0.5rem;
-    margin: 2rem auto;
     display: flex;
     justify-content: center;
     border-radius: 5px;
+    margin: 0 auto;
+    box-shadow: 10px 10px 8px -4px rgba(217, 213, 217, 1);
     cursor: pointer;
     & > label {
         cursor: pointer;
@@ -98,13 +107,14 @@ const StyledLink = styled(Link)`
         margin: 1.5rem auto 0 auto;
         background: black;
         color: white;
+        box-shadow: 10px 10px 8px -4px rgba(51, 49, 51, 1);
     }
     @media ${device.medium}, ${device.large}, ${device.ipad} {
         font-size: ${(props) => props.theme.fontSizes.medium};
         margin: 0 auto;
     }
 `;
-const Yellow = styled.div`
+const Right = styled.div`
     background: #ffda0b;
     width: 50%;
     height: 100%;
@@ -139,17 +149,17 @@ const MainImg = styled.img`
     object-fit: cover;
     @media ${device.small} {
         width: 100%;
-        height: 51%;
+        height: 52%;
         position: fixed;
         top: 13%;
     }
     @media ${device.medium}, ${device.large}, ${device.ipad} {
         width: 100%;
-        height: 56%;
+        height: 55%;
         position: fixed;
-        top: 10%;
+        top: 11%;
     }
-    @media ${device.large}, ${device.ipad} {
+    @media ${device.ipad} {
         top: 9%;
     }
 
@@ -159,37 +169,38 @@ const MainImg = styled.img`
 `;
 const Text = styled.p`
     font-size: ${(props) => props.theme.fontSizes.large};
-    margin: 0em;
+    margin: 0.5rem;
     @media ${device.small} {
         font-size: ${(props) => props.theme.fontSizes.small};
         text-align: center;
-        margin: 0.2em;
+        margin: 0.3rem;
     }
     @media ${device.medium}, ${device.large}, ${device.ipad} {
         text-align: center;
         font-size: ${(props) => props.theme.fontSizes.medium};
-        margin: 0.1em;
     }
 `;
 export default function Home({ JWToken }) {
     return (
         <StyledMain JWToken={JWToken}>
             <Box>
-                <MainText>
-                    <Text>What's cookin' for dinner? </Text>
-                    <Text>Get inspired, </Text>
-                    <Text>Store your recipes,</Text>
-                    <Text>All in one place.</Text>
+                <Left>
+                    <MainText>
+                        <Text>What's cookin' for dinner? </Text>
+                        <Text>Get inspired, </Text>
+                        <Text>Store your recipes,</Text>
+                        <Text>All in one place.</Text>
+                    </MainText>
                     <div style={{ width: "100%" }}>
                         <StyledLink to="/explore">
                             <label>Recipes</label>
                         </StyledLink>
                     </div>
-                </MainText>
+                </Left>
 
-                <Yellow>
+                <Right>
                     <MainImg src={pasta} alt="pasta" />
-                </Yellow>
+                </Right>
             </Box>
         </StyledMain>
     );
