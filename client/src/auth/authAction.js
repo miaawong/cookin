@@ -7,7 +7,7 @@ export const signUp = (data, history) => {
                 "Content-Type": "application/json",
             },
         };
-        axios
+        return axios
             .post("/api/auth/", data, config)
             .then((res) => {
                 let { _id, name, email } = res.data.newUser;
@@ -25,7 +25,7 @@ export const signUp = (data, history) => {
                 history.push("/dashboard");
             })
             .catch((err) => {
-                console.log(err);
+                return err;
             });
     };
 };
@@ -36,10 +36,9 @@ export const login = (data) => {
                 "Content-Type": "application/json",
             },
         };
-        axios
+        return axios
             .post("/api/auth/login", data, config)
             .then((res) => {
-                console.log(res.data);
                 let { token, refreshToken } = res.data;
                 let { _id, name, email } = res.data.userData;
 
@@ -55,7 +54,7 @@ export const login = (data) => {
                 });
             })
             .catch((err) => {
-                console.log(err);
+                return err;
             });
     };
 };

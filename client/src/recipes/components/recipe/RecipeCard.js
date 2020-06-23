@@ -156,7 +156,7 @@ const RecipeCard = ({ userId, recipes, JWToken, loggedIn }) => {
         );
     } else {
         return (
-            <Main loggedIn={loggedIn}>
+            <Main JWToken={JWToken}>
                 <div style={{ width: "100%" }}>
                     <ProgressLabel>My Recipes</ProgressLabel>
                 </div>

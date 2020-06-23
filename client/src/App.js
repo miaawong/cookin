@@ -35,22 +35,30 @@ const Nav = styled.div`
         left: 0;
         top: auto;
         width: 100%;
-        height: 4rem;
+        height: 3rem;
         padding: 0;
     }
 
     @media ${device.ipad} {
+        height: 4rem;
         bottom: 7.9rem;
     }
 `;
 const Label = styled.label`
     font-size: ${(props) => props.theme.fontSizes.medium};
-    background: black;
     padding: 0.5em;
     margin: 0 0.3em;
-
     @media ${device.laptop} {
         margin: 0 auto;
+    }
+    & > a {
+        color: black;
+        @media ${device.small},
+            ${device.medium},
+            ${device.large},
+            ${device.ipad} {
+            color: white;
+        }
     }
 `;
 
@@ -104,7 +112,7 @@ const App = ({ JWToken }) => {
                                 <Link
                                     to="/signup"
                                     style={{
-                                        color: "white",
+                                        // color: "black",
                                         textDecoration: "none",
                                     }}
                                 >
@@ -116,7 +124,7 @@ const App = ({ JWToken }) => {
                                 <Link
                                     to="/login"
                                     style={{
-                                        color: "white",
+                                        // color: "black",
                                         textDecoration: "none",
                                     }}
                                 >

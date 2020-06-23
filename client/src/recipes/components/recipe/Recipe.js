@@ -138,7 +138,10 @@ const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
                             justifyContent: "space-between",
                         }}
                     >
-                        <p>Serves: {`${servings} people`}</p>
+                        <p>
+                            Serves:{" "}
+                            {{ servings } == !null ? `${servings} people` : ""}
+                        </p>
 
                         <p>
                             Time:{" "}

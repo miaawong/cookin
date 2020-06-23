@@ -172,7 +172,7 @@ const EditRecipeDetails = ({ recipe, JWToken }) => {
                                 minutesRef.current.focus();
                             }
                         }}
-                        defaultValue={duration_hour}
+                        defaultValue={isNaN(duration_hour) ? "" : duration_hour}
                     />
                 </label>
 
@@ -186,7 +186,7 @@ const EditRecipeDetails = ({ recipe, JWToken }) => {
                             register(e);
                             minutesRef.current = e;
                         }}
-                        defaultValue={duration_mins}
+                        defaultValue={isNaN(duration_mins) ? "" : duration_mins}
                     />
                 </label>
             </HourMinute>

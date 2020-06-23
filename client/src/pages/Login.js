@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Redirect, Link } from "react-router-dom";
+import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { connect, useDispatch } from "react-redux";
 import { login } from "../auth/authAction";
@@ -11,12 +12,27 @@ import {
     ErrorMessage,
 } from "../recipes/components/StyledForm";
 import ramen from "../images/ramen.png";
+import { StyledMain, ImageContainer, Img } from "../main/StyledAuth";
+const Right = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`;
 
 const Login = ({ id }) => {
+    const emailRef = useRef();
+    const passwordRef = useRef();
     const dispatch = useDispatch();
-    const { register, handleSubmit, errors } = useForm();
+    const { register, handleSubmit, errors, reset } = useForm();
+    const [loginError, setLoginError] = useState(false);
     const onSubmit = (data) => {
-        dispatch(login(data));
+        dispatch(login(data)).then((res) =>
+            res && res.response.status === 401
+                ? (emailRef.current.value = "") &
+                  (passwordRef.current.value = "") &
+                  setLoginError(true)
+                : null
+        );
     };
 
     if (id) {
@@ -24,30 +40,23 @@ const Login = ({ id }) => {
         return <Redirect to="/dashboard" />;
     }
     return (
-        <Main
-            style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-around",
-            }}
-        >
-            <div style={{ width: "50%" }}>
-                <a href="https://blush.design/artists/elsma-ramirez">
-                    <img
-                        src={ramen}
-                        alt="Illustration of food"
-                        style={{ width: "65%", objectFit: "cover" }}
-                    />
+        <StyledMain>
+            <ImageContainer>
+                <a
+                    href="https://blush.design/artists/elsma-ramirez"
+                    style={{ height: "100%" }}
+                >
+                    <Img src={ramen} alt="Illustration of food" />
                 </a>
-            </div>
-            <div>
+            </ImageContainer>
+            <Right>
                 <h1>Login</h1>
                 <h3>
                     Don't have an account?{" "}
                     <Link to="/signup" style={{ textDecoration: "none" }}>
                         <label
                             style={{
-                                color: "#F1CC00",
+                                color: "#ffda0b",
                                 cursor: "pointer",
                             }}
                         >
@@ -58,43 +67,53 @@ const Login = ({ id }) => {
                 </h3>
                 <StyledForm
                     onSubmit={handleSubmit(onSubmit)}
-                    style={{ margin: "0", width: "auto", height: "auto" }}
+                    style={{ margin: "0", width: "auto" }}
                 >
                     <label>
                         Email
                         <TextInput
                             type="text"
                             name="email"
-                            placeholder="Email"
-                            ref={register({
-                                required: "I cannot be empty",
-                                pattern: {
-                                    value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                                    message: "Invalid email address",
-                                },
-                            })}
+                            placeholder="john@gmail.com"
+                            ref={(e) => {
+                                register(
+                                    e,
+                                    {
+                                        required: "I cannot be empty",
+                                        pattern: {
+                                            value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                            message: "Invalid email address",
+                                        },
+                                    },
+                                    (emailRef.current = e)
+                                );
+                            }}
                         />
                         <ErrorMessage>
                             {errors.email && "*" + errors.email.message}
                         </ErrorMessage>
+                        {loginError && (
+                            <ErrorMessage>
+                                *Incorrect Email or Password, please try again
+                            </ErrorMessage>
+                        )}
                     </label>
                     <label>
                         Password
                         <TextInput
                             type="password"
                             name="password"
-                            placeholder="Password"
-                            ref={register({
-                                required: "I cannot be empty",
-                                minLength: {
-                                    value: 8,
-                                    message: "Must be at least 8 characters",
-                                },
-                            })}
+                            placeholder="********"
+                            ref={(e) => {
+                                register(
+                                    e,
+                                    {
+                                        required: "I cannot be empty",
+                                    },
+                                    (passwordRef.current = e)
+                                );
+                            }}
                         />
-                        <ErrorMessage>
-                            {errors.password && "*" + errors.password.message}
-                        </ErrorMessage>
                     </label>
 
                     <Submit
@@ -105,8 +124,8 @@ const Login = ({ id }) => {
                         Login
                     </Submit>
                 </StyledForm>
-            </div>
-        </Main>
+            </Right>
+        </StyledMain>
     );
 };
 

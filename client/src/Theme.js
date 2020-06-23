@@ -13,10 +13,10 @@ export const theme = {
 };
 
 export const device = {
-    small: "(max-width:750px)",
-    medium: "(min-width: 751px) and (max-width: 1000px)",
+    small: "(max-width:500px)",
+    medium: "(min-width: 501px) and (max-width: 1000px)",
     large: "(min-width:1001px) and (max-width:1024px)",
     ipad: "(max-width:1024px) and (min-height:1366px)",
     laptop: "(min-width:1025px) and (max-width:1700px)",
-    wide: "(min-width:1700px)",
+    wide: "(min-width:1701px)",
 };

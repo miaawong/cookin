@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useStore } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { signUp } from "../auth/authAction";
@@ -10,42 +10,52 @@ import {
     Main,
     ErrorMessage,
 } from "../recipes/components/StyledForm";
-import dinner from "../images/munchies.png";
+import salad from "../images/salad.png";
+import {
+    StyledMain,
+    ImageContainer,
+    Img,
+    Title,
+    Check,
+} from "../main/StyledAuth";
+import styled from "styled-components";
+
+const Right = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`;
 
 const SignUp = () => {
     const { register, handleSubmit, errors } = useForm();
+    const [signUpError, setSignUpError] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
 
     const onSubmit = (data) => {
-        dispatch(signUp(data, history));
+        dispatch(signUp(data, history)).then((res) =>
+            res && res.response.status === 400 ? setSignUpError(true) : null
+        );
     };
 
     return (
-        <Main
-            style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-around",
-            }}
-        >
-            <div style={{ width: "50%" }}>
-                <a href="https://blush.design/artists/elsma-ramirez">
-                    <img
-                        src={dinner}
-                        alt="Illustration of food"
-                        style={{ width: "100%", objectFit: "cover" }}
-                    />
+        <StyledMain>
+            <ImageContainer style={{ height: "35%" }}>
+                <a
+                    href="https://blush.design/artists/elsma-ramirez"
+                    style={{ height: "100%" }}
+                >
+                    <Img src={salad} alt="Illustration of food" />
                 </a>
-            </div>
-            <div>
-                <h1>Sign Up</h1>
-                <h3>
+            </ImageContainer>
+            <Right>
+                <Title>Sign Up</Title>
+                <Check>
                     Have an account?{" "}
                     <Link to="/login" style={{ textDecoration: "none" }}>
                         <label
                             style={{
-                                color: "#F1CC00",
+                                color: "#ffda0b",
                                 cursor: "pointer",
                             }}
                         >
@@ -53,10 +63,14 @@ const SignUp = () => {
                         </label>
                     </Link>{" "}
                     instead
-                </h3>
+                </Check>
                 <StyledForm
                     onSubmit={handleSubmit(onSubmit)}
-                    style={{ margin: "0", width: "auto" }}
+                    style={{
+                        margin: "0",
+                        width: "auto",
+                        justifyContent: "center",
+                    }}
                 >
                     <label>
                         Name
@@ -89,7 +103,7 @@ const SignUp = () => {
                                     message: "Invalid email address",
                                 },
                             })}
-                            placeholder="Email"
+                            placeholder="john@gmail.com"
                         />
                         <ErrorMessage>
                             {errors.email && "*" + errors.email.message}
@@ -109,11 +123,14 @@ const SignUp = () => {
                                         "Must be at least 8 characters please! ",
                                 },
                             })}
-                            placeholder="Password"
+                            placeholder="********"
                         />
                         <ErrorMessage>
                             {errors.password && "*" + errors.password.message}
                         </ErrorMessage>
+                        {signUpError && (
+                            <ErrorMessage>*Email already exists</ErrorMessage>
+                        )}
                     </label>
 
                     <Submit
@@ -124,8 +141,8 @@ const SignUp = () => {
                         Create An Account
                     </Submit>
                 </StyledForm>
-            </div>
-        </Main>
+            </Right>
+        </StyledMain>
     );
 };
 export default SignUp;
