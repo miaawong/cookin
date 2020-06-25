@@ -10,34 +10,31 @@ const Box = styled.div`
     background: white;
     border: 5px solid black;
     justify-content: center;
-    align-content: center;
     height: 75%;
     width: 90%;
     margin: 0 auto;
     align-items: center;
 
-    @media ${device.small}, ${device.medium} {
+    @media ${device.small}, ${device.medium}, ${device.large}, ${device.ipad} {
         flex-direction: column;
         border: none;
         margin: 0;
         width: 100%;
-        position: fixed;
-        top: 7rem;
-    }
-    @media ${device.large}, ${device.ipad} {
-        flex-direction: column;
-        border: none;
-        margin: 0;
-        width: 100%;
-        top: 7rem;
-        position: fixed;
+        position: absolute;
+        align-items: flex-start;
+        top: 0;
+        height: 100%;
     }
 `;
 
 const StyledMain = styled(Main)`
-    height: 80%;
     width: ${(JWToken) => (JWToken === " " ? "97%" : "100%")};
     margin: 0;
+    position: relative;
+    height: 85%;
+    @media ${device.ipad} {
+        height: 81%;
+    }
 `;
 const Left = styled.div`
     width: 50%;
@@ -45,19 +42,19 @@ const Left = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    @media ${device.small}, ${device.medium}, ${device.large} {
+    @media ${device.small}, ${device.medium}, ${device.large},${device.ipad} {
         width: 100%;
         position: fixed;
-        bottom: 3rem;
-        height: 30%;
+        bottom: 2.5rem;
+        height: 35%;
         background: #ffda0b;
         padding: 1rem;
     }
-    @media ${device.medium}, ${device.large} {
+    /* @media ${device.medium}, ${device.large} {
         height: 30.5%;
-    }
+    } */
     @media ${device.ipad} {
-        height: 23%;
+        height: 30%;
         bottom: 11.5rem;
     }
 `;
@@ -104,7 +101,8 @@ const StyledLink = styled(Link)`
 
     @media ${device.small}, ${device.medium}, ${device.large}, ${device.ipad} {
         font-size: ${(props) => props.theme.fontSizes.small};
-        margin: 1.5rem auto 0 auto;
+        width: 8rem;
+        padding: 0.3rem;
         background: black;
         color: white;
         box-shadow: 10px 10px 8px -4px rgba(51, 49, 51, 1);
@@ -147,20 +145,16 @@ const Right = styled.div`
 const MainImg = styled.img`
     width: 90%;
     object-fit: cover;
-    @media ${device.small} {
+    @media ${device.small}, ${device.medium}, ${device.large}, ${device.ipad} {
         width: 100%;
-        height: 52%;
-        position: fixed;
-        top: 13%;
+        height: 61%;
+        position: absolute;
     }
-    @media ${device.medium}, ${device.large}, ${device.ipad} {
-        width: 100%;
-        height: 55%;
-        position: fixed;
-        top: 11%;
+    @media ${device.medium} {
+        height: 65%;
     }
-    @media ${device.ipad} {
-        top: 9%;
+    @media ${device.large}, ${device.ipad} {
+        height: 64%;
     }
 
     @media ${device.laptop}, ${device.wide} {

@@ -16,18 +16,24 @@ import { device } from "./Theme";
 import LoggedInNav from "./main/components/LoggedInNav";
 import Explore from "./pages/explore";
 
-const Theme = styled.div`
-    font-family: ${(props) => props.theme.font};
+const TopBar = styled.div`
+    width: 88%;
+    margin: ${({ JWToken }) => (JWToken ? "0 0 0 3rem" : "0 2rem 0 3rem")};
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    @media ${device.small}, ${device.medium}, ${device.large} {
+        padding: 0;
+        justify-content: center;
+        width: 100%;
+        background: ${(props) => props.theme.colors.yellow};
+        margin: 0;
+    }
 `;
-
 const Nav = styled.div`
-    height: 5rem;
-    width: 20%;
-    position: absolute;
-    top: 0;
-    right: 2.5rem;
-    padding: 2rem 0;
-    z-index: 1;
+    width: 18rem;
+
     @media ${device.small}, ${device.medium}, ${device.large}, ${device.ipad} {
         position: fixed;
         background: black;
@@ -48,37 +54,43 @@ const Label = styled.label`
     font-size: ${(props) => props.theme.fontSizes.medium};
     padding: 0.5em;
     margin: 0 0.3em;
+    height: 100%;
     @media ${device.laptop} {
         margin: 0 auto;
     }
     & > a {
+        vertical-align: middle;
         color: black;
         @media ${device.small},
             ${device.medium},
             ${device.large},
             ${device.ipad} {
             color: white;
+            vertical-align: baseline;
         }
     }
 `;
 
 const Links = styled.div`
+    font-family: ${(props) => props.theme.font};
     display: flex;
     flex-direction: row;
-    align-content: center;
     justify-content: space-around;
-    @media ${device.laptop} {
+    height: 100%;
+    @media ${device.laptop}, ${device.wide} {
         justify-content: space-between;
     }
 `;
 
-const TopBar = styled.div`
-    margin: ${({ JWToken }) => (JWToken ? "0 6rem 0 2rem" : "0 2rem")};
-    padding: 1rem 0;
-`;
 const Logo = styled.img`
     height: 75px;
     @media ${device.small} {
+        height: 50px;
+    }
+    @media ${device.medium} {
+        height: 60px;
+    }
+    @media ${device.large} {
         height: 70px;
     }
 `;
@@ -97,14 +109,11 @@ const App = ({ JWToken }) => {
     // }, [JWToken]);
 
     return (
-        <Router>
-            <Theme>
-                <TopBar JWToken={JWToken}>
-                    <Link to="/">
-                        <Logo src={logo} alt="cookin logo" />
-                    </Link>
-                </TopBar>
-
+        <Router style={{ height: "100%" }}>
+            <TopBar JWToken={JWToken}>
+                <Link to="/">
+                    <Logo src={logo} alt="cookin logo" />
+                </Link>
                 {!JWToken ? (
                     <Nav>
                         <Links>
@@ -136,8 +145,12 @@ const App = ({ JWToken }) => {
                 ) : (
                     <LoggedInNav></LoggedInNav>
                 )}
-            </Theme>
+            </TopBar>
+
             <Switch>
+                <Route exact path="/health">
+                    <h3>The App is Healthy</h3>
+                </Route>
                 <Route exact path="/explore">
                     <Explore JWToken={JWToken} />
                 </Route>
