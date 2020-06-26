@@ -13,7 +13,6 @@ export const ProgressLabel = styled.h1`
 export const Main = styled.div`
     display: flex;
     flex-direction: column;
-
     width: 80%;
     height: 70%;
     font-family: ${(props) => props.theme.font};
@@ -23,7 +22,6 @@ export const Main = styled.div`
 
 export const StyledForm = styled.form`
     width: 80%;
-    height: 100%;
     margin: 0 auto;
     font-family: ${(props) => props.theme.font};
     font-size: ${theme.fontSizes.medium};
@@ -31,7 +29,7 @@ export const StyledForm = styled.form`
     flex-direction: column;
     justify-content: space-evenly;
     align-content: flex-start;
-    overflow: auto;
+    /* overflow: auto; */
     @media ${device.laptop}, ${device.wide} {
         margin: 0 auto 0 6rem;
     }
