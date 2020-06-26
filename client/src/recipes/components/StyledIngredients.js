@@ -3,7 +3,8 @@ import { device } from "../../Theme";
 
 export const Ingredient = styled.div`
     display: flex;
-    flex-wrap: ${({ unit }) => (unit.value === "other" ? "wrap" : "no-wrap")};
+    flex-wrap: ${({ unit }) =>
+        unit && unit.value === "other" ? "wrap" : "no-wrap"};
     justify-content: space-evenly;
     align-items: center;
 `;
