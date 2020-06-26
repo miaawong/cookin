@@ -55,6 +55,9 @@ const RecipeName = styled.h1`
     font-size: ${(props) => props.theme.fontSizes.large};
     display: flex;
     justify-content: center;
+    @media ${device.small} { 
+        font-size: ${(props)=> props.theme.fontSizes.medium}
+    }
 `;
 
 const Description = styled.p`
