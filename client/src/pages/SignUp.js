@@ -17,7 +17,7 @@ import {
     Img,
     Title,
     Check,
-} from "../main/StyledAuth";
+} from "../main/components/StyledAuth";
 import styled from "styled-components";
 
 const Right = styled.div`
@@ -84,6 +84,7 @@ const SignUp = () => {
                                     message: " Must be at least 2 characters",
                                 },
                             })}
+                            style={{ margin: "0" }}
                             placeholder="John"
                         />
                         <ErrorMessage>
