@@ -226,8 +226,8 @@ const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
                         {ingredients &&
                             ingredients.map((ingredient, index) => (
                                 <li key={index} style={{ listStyle: "none" }}>
-                                    {ingredient.amount}
-                                    {ingredient.unit && ingredient.unit.value}
+                                    {ingredient.amount}{" "}
+                                    {ingredient.unit && ingredient.unit.value}{" "}
                                     {ingredient.ingName}
                                 </li>
                             ))}
