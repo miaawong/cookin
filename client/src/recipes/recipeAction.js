@@ -205,11 +205,23 @@ export const deleteRecipe = (recipeId, token, history) => {
 
 export const uploadImage = (file, token) => {
     return (dispatch) => {
+        let percent = 0;
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+            },
+            onUploadProgress: (progressEvent) => {
+                console.log(progressEvent);
+                const { loaded, total, lengthComputable } = progressEvent;
+
+                console.log(loaded, "load");
+                console.log(lengthComputable, "lengthcomp");
+                percent = Math.floor((loaded * 100) / total);
+                console.log(`${loaded} / ${total} |  ${percent}%`);
             },
         };
+
         let data = new FormData();
         let uploadFile = file[0];
         let originalname = uploadFile.name;
