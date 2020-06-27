@@ -12,6 +12,7 @@
         "history": "^4.10.1",
         "html-webpack-plugin": "^4.3.0",
         "jwt-decode": "^2.2.0",
+        "rc-progress": "^3.0.0",
         "react": "^16.13.0",
         "react-dom": "^16.13.0",
         "react-dropzone": "^11.0.1",

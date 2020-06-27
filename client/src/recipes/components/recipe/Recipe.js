@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -26,6 +26,9 @@ import {
 } from "./StyledRecipe";
 
 const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const [deleteModal, setDeleteModal] = useState(false);
     let dispatch = useDispatch();
     let history = useHistory();
@@ -78,12 +81,14 @@ const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
                 {JWToken ? (
                     likes.indexOf(userId) === -1 ? (
                         <FavoriteBtn
+                            JWToken={JWToken}
                             onClick={() => dispatch(likeRecipe(_id, JWToken))}
                         >
                             <FaRegHeart size={30} />
                         </FavoriteBtn>
                     ) : (
                         <FavoriteBtn
+                            JWToken={JWToken}
                             onClick={() => dispatch(unlikeRecipe(_id, JWToken))}
                         >
                             <FaHeart
@@ -95,7 +100,10 @@ const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
                         </FavoriteBtn>
                     )
                 ) : (
-                    <FavoriteBtn onClick={() => history.push("/signup")}>
+                    <FavoriteBtn
+                        JWToken={JWToken}
+                        onClick={() => history.push("/signup")}
+                    >
                         <FaRegHeart size={30} />
                     </FavoriteBtn>
                 )}

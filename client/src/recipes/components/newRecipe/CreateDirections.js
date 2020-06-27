@@ -12,6 +12,8 @@ const AddMore = styled.button`
     padding: 0.5rem;
     border: none;
     background: #000;
+    border-radius: 8px;
+    font-size: ${(props) => props.theme.fontSizes.small};
 `;
 
 const CreateDirections = ({ JWToken, draftRecipe }) => {

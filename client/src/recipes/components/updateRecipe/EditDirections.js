@@ -5,13 +5,15 @@ import { useHistory } from "react-router-dom";
 import { editRecipe } from "../../recipeAction";
 import { StyledForm, Submit, TextArea, ProgressLabel } from "../StyledForm";
 import styled from "styled-components";
-import { FaPlus } from "react-icons/fa";
 
 const AddMore = styled.button`
-    width: 4rem;
+    display: block;
+    color: white;
     padding: 0.5rem;
     border: none;
     background: #000;
+    border-radius: 8px;
+    font-size: ${(props) => props.theme.fontSizes.small};
 `;
 const EditDirections = ({ JWToken, draftRecipe, recipe }) => {
     let { _id, directions } = recipe;
@@ -54,7 +56,7 @@ const EditDirections = ({ JWToken, draftRecipe, recipe }) => {
                     append({ directions: "directions" });
                 }}
             >
-                <FaPlus style={{ color: "white" }} size={22} />
+                Add More
             </AddMore>
             <div>
                 <Submit

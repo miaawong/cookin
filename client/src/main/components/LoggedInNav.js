@@ -11,7 +11,6 @@ const StyledLink = styled(Link)`
     color: white;
     text-decoration: none;
     display: flex;
-    width: 12rem;
     height: 5rem;
     justify-content: center;
     align-items: center;
@@ -41,10 +40,10 @@ const Nav = styled.nav`
     align-items: center;
     right: 0;
     background: black;
-    padding: 0;
+    padding: 0 1rem;
     bottom: 0;
     width: 100%;
-    height: 4rem;
+    height: 3rem;
     top: auto;
     flex-direction: row;
 
@@ -53,6 +52,7 @@ const Nav = styled.nav`
         margin: 0 auto;
     }
     &:hover > ${StyledLink} {
+        width: 12rem;
         justify-content: center;
     }
     @media ${device.wide}, ${device.laptop} {

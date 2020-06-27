@@ -102,7 +102,7 @@ export const FavoriteBtn = styled.button`
     border-radius: 8px;
     position: absolute;
     top: 1rem;
-    right: 0.5rem;
+    right: ${({ JWToken }) => (JWToken ? "2rem" : "0.5rem")};
     border: none;
 `;
 export const Modification = styled.div`
@@ -113,8 +113,8 @@ export const Modification = styled.div`
 export const DeleteModalContainer = styled.div`
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.8);
     position: fixed;
     z-index: 1;
@@ -127,14 +127,16 @@ export const DeleteModal = styled.div`
     justify-content: space-evenly;
     text-align: center;
     z-index: 1;
-    width: 50%;
-    height: 30%;
+    width: 60%;
     background: white;
     color: black;
     border-radius: 5px;
     margin: 0 auto;
     font-size: ${(props) => props.theme.fontSizes.medium};
     padding: 1rem;
+    @media ${device.small} {
+        width: 100%;
+    }
 `;
 export const DeleteBtn = styled.button`
     width: 7rem;
@@ -143,7 +145,11 @@ export const DeleteBtn = styled.button`
     background: black;
     border: none;
     border-radius: 8px;
+    text-align: center;
     font-size: ${(props) => props.theme.fontSizes.medium};
+    @media ${device.small} {
+        font-size: ${(props) => props.theme.fontSizes.small};
+    }
 `;
 export const DeleteRow = styled.div`
     display: flex;

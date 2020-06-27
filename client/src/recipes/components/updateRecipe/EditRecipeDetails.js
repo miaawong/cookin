@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { setDraftRecipe, uploadImage } from "../../recipeAction";
+import { Line } from "rc-progress";
 import {
     StyledForm,
     Submit,
@@ -40,7 +41,7 @@ const EditRecipeDetails = ({ recipe, JWToken }) => {
                     display: "flex",
                     justifyContent: "space-around",
                     textAlign: "center",
-                    padding: "0 2rem",
+                    padding: "1rem 2rem",
                 }}
             >
                 <img
@@ -51,17 +52,34 @@ const EditRecipeDetails = ({ recipe, JWToken }) => {
                     }}
                     alt={file.name}
                 />
-                <p>{file.path}</p>
+                <p>
+                    {file.path.length > 15
+                        ? `${file.path.substr(0, 15)}`
+                        : file.path}
+                </p>
             </div>
             // </li>
         );
     });
+    const [uploadProgress, setProgress] = useState(0);
+    const config = {
+        headers: {
+            Authorization: `Bearer ${JWToken}`,
+            "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (progressEvent) => {
+            console.log(progressEvent);
+            const { loaded, total } = progressEvent;
+            let percent = Math.floor((loaded * 100) / total);
+            setProgress(percent);
+        },
+    };
     const onSubmit = (data) => {
         if (!dropped) {
             const updatedData = { ...data, img: img };
             dispatch(setDraftRecipe(updatedData));
         } else {
-            dispatch(uploadImage(file, JWToken))
+            dispatch(uploadImage(file, JWToken, config))
                 .then((url) => {
                     const updatedData = { ...data, img: url };
                     dispatch(setDraftRecipe(updatedData));
@@ -196,6 +214,19 @@ const EditRecipeDetails = ({ recipe, JWToken }) => {
                     <input {...getInputProps()} />
                     <p>Drop or click to upload image</p>
                     <div>{filepath}</div>
+                    {uploadProgress > 0 && (
+                        <Line
+                            percent={uploadProgress}
+                            strokeWidth="2"
+                            strokeColor="#ffda0b"
+                            style={{
+                                position: "absolute",
+                                bottom: "0",
+                                borderRadius: "8px",
+                                width: "100%",
+                            }}
+                        />
+                    )}
                 </ImageUpload>
             </div>
 

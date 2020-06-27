@@ -4,9 +4,17 @@ import { useForm, useFieldArray, Controller } from "react-hook-form";
 import Select from "react-select";
 import { setDraftRecipe } from "../../recipeAction";
 import { StyledForm, Submit, TextInput, ProgressLabel } from "../StyledForm";
-import { FaPlus } from "react-icons/fa";
 import { Ingredient, IngredientRow, AddButton } from "../StyledIngredients";
-import { theme } from "../../../Theme";
+
+import styled from "styled-components";
+import { device, theme } from "../../../Theme";
+
+const UnitLabel = styled.label`
+    width: 100%;
+    @media ${device.laptop}, ${device.wide} {
+        width: 15rem;
+    }
+`;
 
 const customStyles = {
     option: (provided, state) => ({
@@ -20,13 +28,14 @@ const customStyles = {
     }),
     control: (provided) => ({
         ...provided,
-        border: "2px solid black",
-        borderRadius: 0,
+        border: "1px solid black",
+        borderRadius: "8px",
         // This line disable the blue border
         boxShadow: "none",
         "&:hover": {
             border: "2px solid black",
         },
+        margin: ".5rem 0",
     }),
 };
 const EditIngredients = ({ draftRecipe, recipe }) => {
@@ -71,9 +80,7 @@ const EditIngredients = ({ draftRecipe, recipe }) => {
         >
             <ProgressLabel>Ingredients</ProgressLabel>
             {fields.map((input, index) => {
-                console.log(input, "input");
                 const unit = watch(`ingredients[${index}].unit`);
-
                 return (
                     <Ingredient key={input.id} unit={unit}>
                         <IngredientRow>
@@ -115,7 +122,7 @@ const EditIngredients = ({ draftRecipe, recipe }) => {
                                 />
                             </label>
 
-                            <label style={{ width: "15rem" }}>
+                            <UnitLabel>
                                 Unit
                                 <Controller
                                     as={
@@ -126,6 +133,7 @@ const EditIngredients = ({ draftRecipe, recipe }) => {
                                                 unitRef.current = e;
                                             }}
                                             styles={customStyles}
+                                            maxMenuHeight={150}
                                         />
                                     }
                                     value={option}
@@ -134,7 +142,7 @@ const EditIngredients = ({ draftRecipe, recipe }) => {
                                     name={`ingredients[${index}].unit`}
                                     control={control}
                                 />
-                            </label>
+                            </UnitLabel>
                         </IngredientRow>
                         {unit && unit.value === "other" && (
                             <div
