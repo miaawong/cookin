@@ -65,6 +65,7 @@ const EditDirections = ({ JWToken, draftRecipe, recipe }) => {
                     Submit
                 </Submit>
             </div>
+            <div style={{ marginBottom: "5rem" }} />
         </StyledForm>
     );
 };
