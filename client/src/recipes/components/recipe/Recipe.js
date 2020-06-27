@@ -10,7 +10,7 @@ import { likeRecipe, unlikeRecipe } from "../../recipeAction";
 import {
     Main,
     Description,
-    Middle,
+    Bottom,
     ImgContainer,
     Image,
     Modification,
@@ -24,11 +24,6 @@ import {
     DeleteBtn,
     DeleteRow,
 } from "./StyledRecipe";
-
-const RecipeMain = styled(Main)`
-    height: 100%;
-    width: 100%;
-`;
 
 const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
     const [deleteModal, setDeleteModal] = useState(false);
@@ -77,50 +72,36 @@ const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
     let createdYear = new Date(createdOn).getFullYear();
 
     return (
-        <RecipeMain
-            JWToken={JWToken}
-            // style={{ height: "100%", width: "100%" }}
-        >
+        <Main JWToken={JWToken}>
             <ImgContainer>
-                <Image
-                    alt={recipeName}
-                    src={img}
-                    style={{ position: "relative" }}
-                />
-            </ImgContainer>
-            <Description>
-                <RecipeName>
-                    {recipeName}
-
-                    {JWToken ? (
-                        likes.indexOf(userId) === -1 ? (
-                            <FavoriteBtn
-                                onClick={() =>
-                                    dispatch(likeRecipe(_id, JWToken))
-                                }
-                            >
-                                <FaRegHeart size={30} />
-                            </FavoriteBtn>
-                        ) : (
-                            <FavoriteBtn
-                                onClick={() =>
-                                    dispatch(unlikeRecipe(_id, JWToken))
-                                }
-                            >
-                                <FaHeart
-                                    style={{
-                                        color: "#FB170A",
-                                    }}
-                                    size={30}
-                                />
-                            </FavoriteBtn>
-                        )
-                    ) : (
-                        <FavoriteBtn onClick={() => history.push("/signup")}>
+                <Image alt={recipeName} src={img} />
+                {JWToken ? (
+                    likes.indexOf(userId) === -1 ? (
+                        <FavoriteBtn
+                            onClick={() => dispatch(likeRecipe(_id, JWToken))}
+                        >
                             <FaRegHeart size={30} />
                         </FavoriteBtn>
-                    )}
-                </RecipeName>
+                    ) : (
+                        <FavoriteBtn
+                            onClick={() => dispatch(unlikeRecipe(_id, JWToken))}
+                        >
+                            <FaHeart
+                                style={{
+                                    color: "#FB170A",
+                                }}
+                                size={30}
+                            />
+                        </FavoriteBtn>
+                    )
+                ) : (
+                    <FavoriteBtn onClick={() => history.push("/signup")}>
+                        <FaRegHeart size={30} />
+                    </FavoriteBtn>
+                )}
+            </ImgContainer>
+            <Description>
+                <RecipeName>{recipeName}</RecipeName>
 
                 <span
                     style={{
@@ -234,14 +215,15 @@ const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
                     </ul>
                 </BottomDesc>
             </Description>
-            <Middle>
+            <Bottom>
                 <Category>Directions</Category>
                 {directions &&
                     directions.map((step, index) => (
                         <p key={index}> - {step}</p>
                     ))}
-            </Middle>
-        </RecipeMain>
+                <div style={{ marginBottom: "5rem" }} />
+            </Bottom>
+        </Main>
     );
 };
 
