@@ -3,9 +3,9 @@ import { device, theme } from "../../Theme";
 
 export const ProgressLabel = styled.h1`
     text-align: center;
-    background: ${(props) => props.theme.colors.yellow};
+    border: 4px solid black;
     width: 15rem;
-    margin: 0.5rem auto;
+    margin: 1rem auto;
     font-size: ${(props) => props.theme.fontSizes.XL};
 `;
 
@@ -14,22 +14,22 @@ export const Main = styled.div`
     display: flex;
     flex-direction: column;
     width: 80%;
-    height: 70%;
+    height: auto;
     font-family: ${(props) => props.theme.font};
-    margin: 2rem auto;
+    margin: 1rem auto;
     text-align: left;
 `;
 
 export const StyledForm = styled.form`
     width: 80%;
-    margin: 0 auto;
+    margin: 0.5rem auto;
     font-family: ${(props) => props.theme.font};
     font-size: ${theme.fontSizes.medium};
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-content: flex-start;
-    /* overflow: auto; */
+    height: auto;
     @media ${device.laptop}, ${device.wide} {
         margin: 0 auto 0 6rem;
     }
@@ -71,7 +71,7 @@ export const Submit = styled.button`
     font-family: ${(props) => props.theme.font};
     font-size: 26px;
     /* width: 8rem; */
-    height: auto;
+    /* height: 4rem; */
     background: black;
     color: white;
     padding: 0.5rem;
@@ -97,7 +97,7 @@ export const ImageUpload = styled.div`
     background: black;
     color: white;
     width: 100%;
-    height: 5rem;
+    border-radius: 8px;
     text-align: center;
     @media ${device.laptop}, ${device.wide} {
         height: 15rem;
