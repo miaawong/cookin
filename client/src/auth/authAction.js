@@ -54,7 +54,7 @@ export const login = (data) => {
                 });
             })
             .catch((err) => {
-                return err;
+                return err.response.data;
             });
     };
 };
