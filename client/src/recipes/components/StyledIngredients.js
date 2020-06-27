@@ -26,4 +26,5 @@ export const AddButton = styled.button`
     height: 3rem;
     background-color: #000;
     font-size: ${(props) => props.theme.fontSizes.small};
+    border-radius: 8px;
 `;
