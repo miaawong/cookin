@@ -130,6 +130,7 @@ const Login = ({ id }) => {
                     </Submit>
                 </StyledForm>
             </Right>
+            <div style={{ marginBottom: "5rem" }}></div>
         </StyledMain>
     );
 };
