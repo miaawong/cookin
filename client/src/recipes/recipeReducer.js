@@ -37,8 +37,7 @@ const recipeReducer = (state = initState, action) => {
                 if (recipe._id === action.payload._id) {
                     return {
                         ...recipe,
-                        likes: action.payload.likes,
-                        updatedAt: action.payload.updatedAt,
+                        recipe: action.payload,
                     };
                 } else {
                     return {
@@ -50,11 +49,7 @@ const recipeReducer = (state = initState, action) => {
             return {
                 ...state,
                 recipes: updatedLikesRecipe,
-                currentRecipe: {
-                    ...state.currentRecipe,
-                    likes: action.payload.likes,
-                    updatedAt: action.payload.updatedAt,
-                },
+                currentRecipe: { ...state.currentRecipe, ...action.payload },
                 edit: false,
             };
 
