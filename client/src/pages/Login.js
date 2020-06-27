@@ -12,7 +12,12 @@ import {
     ErrorMessage,
 } from "../recipes/components/StyledForm";
 import ramen from "../images/ramen.png";
-import { StyledMain, ImageContainer, Img } from "../main/StyledAuth";
+import {
+    StyledMain,
+    ImageContainer,
+    Img,
+    Title,
+} from "../main/components/StyledAuth";
 const Right = styled.div`
     display: flex;
     flex-direction: column;
@@ -50,7 +55,7 @@ const Login = ({ id }) => {
                 </a>
             </ImageContainer>
             <Right>
-                <h1>Login</h1>
+                <Title>Login</Title>
                 <h3>
                     Don't have an account?{" "}
                     <Link to="/signup" style={{ textDecoration: "none" }}>
@@ -125,6 +130,7 @@ const Login = ({ id }) => {
                     </Submit>
                 </StyledForm>
             </Right>
+            <div style={{ marginBottom: "5rem" }}></div>
         </StyledMain>
     );
 };

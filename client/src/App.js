@@ -23,7 +23,8 @@ const TopBar = styled.div`
     display: flex;
     justify-content: space-between;
     align-content: center;
-    @media ${device.small}, ${device.medium}, ${device.large} {
+    /* height: 9%; */
+    @media ${device.small}, ${device.medium} {
         padding: 0;
         justify-content: center;
         width: 100%;
@@ -33,21 +34,15 @@ const TopBar = styled.div`
 `;
 const Nav = styled.div`
     width: 18rem;
-
-    @media ${device.small}, ${device.medium}, ${device.large}, ${device.ipad} {
+    z-index: 1;
+    @media ${device.small}, ${device.medium} {
         position: fixed;
         background: black;
         bottom: 0;
         left: 0;
-        top: auto;
         width: 100%;
         height: 3rem;
         padding: 0;
-    }
-
-    @media ${device.ipad} {
-        height: 4rem;
-        bottom: 7.9rem;
     }
 `;
 const Label = styled.label`
@@ -61,10 +56,7 @@ const Label = styled.label`
     & > a {
         vertical-align: middle;
         color: black;
-        @media ${device.small},
-            ${device.medium},
-            ${device.large},
-            ${device.ipad} {
+        @media ${device.small}, ${device.medium} {
             color: white;
             vertical-align: baseline;
         }
@@ -75,10 +67,10 @@ const Links = styled.div`
     font-family: ${(props) => props.theme.font};
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     height: 100%;
-    @media ${device.laptop}, ${device.wide} {
-        justify-content: space-between;
+    justify-content: space-between;
+    @media ${device.small}, ${device.medium} {
+        justify-content: space-around;
     }
 `;
 
@@ -109,7 +101,7 @@ const App = ({ JWToken }) => {
     // }, [JWToken]);
 
     return (
-        <Router style={{ height: "100%" }}>
+        <Router>
             <TopBar JWToken={JWToken}>
                 <Link to="/">
                     <Logo src={logo} alt="cookin logo" />

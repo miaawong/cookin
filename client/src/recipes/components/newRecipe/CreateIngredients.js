@@ -28,7 +28,7 @@ const customStyles = {
     control: (provided) => ({
         ...provided,
         border: "1px solid black",
-        borderRadius: 0,
+        borderRadius: "8px",
         // This line disable the blue border
         boxShadow: "none",
         "&:hover": {
@@ -214,6 +214,7 @@ const CreateIngredients = ({ draftRecipe }) => {
                     Submit
                 </Submit>
             </div>
+            <div style={{ marginBottom: "5rem" }} />
         </StyledForm>
     );
 };

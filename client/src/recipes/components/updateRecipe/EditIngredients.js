@@ -63,6 +63,7 @@ const EditIngredients = ({ draftRecipe, recipe }) => {
     const ingredientRef = useRef();
     const amountRef = useRef();
     const unitRef = useRef();
+
     return (
         <StyledForm
             onSubmit={handleSubmit(onSubmit)}
@@ -70,6 +71,7 @@ const EditIngredients = ({ draftRecipe, recipe }) => {
         >
             <ProgressLabel>Ingredients</ProgressLabel>
             {fields.map((input, index) => {
+                console.log(input, "input");
                 const unit = watch(`ingredients[${index}].unit`);
 
                 return (
@@ -133,23 +135,7 @@ const EditIngredients = ({ draftRecipe, recipe }) => {
                                     control={control}
                                 />
                             </label>
-
-                            <label>
-                                Add
-                                <AddButton
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        append({ ingredients: "ingredients" });
-                                    }}
-                                >
-                                    <FaPlus
-                                        style={{ color: "white" }}
-                                        size={22}
-                                    />
-                                </AddButton>
-                            </label>
                         </IngredientRow>
-                        {console.log(unit, "unit")}
                         {unit && unit.value === "other" && (
                             <div
                                 style={{
@@ -192,13 +178,23 @@ const EditIngredients = ({ draftRecipe, recipe }) => {
                                         );
                                     }}
                                 >
-                                    Add New Unit
+                                    Add
                                 </AddButton>
                             </div>
                         )}
                     </Ingredient>
                 );
             })}
+            <AddButton
+                onClick={(e) => {
+                    e.preventDefault();
+                    append({
+                        ingredients: "ingredients",
+                    });
+                }}
+            >
+                Add More Ingredients
+            </AddButton>
             <div>
                 <Submit
                     type="submit"
@@ -208,6 +204,7 @@ const EditIngredients = ({ draftRecipe, recipe }) => {
                     Submit
                 </Submit>
             </div>
+            <div style={{ marginBottom: "5rem" }} />
         </StyledForm>
     );
 };

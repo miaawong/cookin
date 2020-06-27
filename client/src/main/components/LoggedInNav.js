@@ -20,6 +20,7 @@ const StyledLink = styled(Link)`
     & > label {
         cursor: pointer;
         display: none;
+        font-family: ${(props) => props.theme.font};
     }
     :nth-last-child(2) {
         margin-top: 0;
@@ -32,6 +33,7 @@ const StyledLink = styled(Link)`
     }
 `;
 const Nav = styled.nav`
+    font-family: ${(props) => props.theme.fontFamily};
     z-index: 1;
     position: fixed;
     display: flex;

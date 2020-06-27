@@ -5,17 +5,30 @@ import pasta from "../images/Creamy-Salmon-Pasta-with-Spinach-2.jpg";
 import { device } from "../Theme";
 import { Main } from "../main/components/StyledMain";
 
+const StyledMain = styled(Main)`
+    width: ${(JWToken) => (JWToken === " " ? "97%" : "100%")};
+    margin: 0;
+    position: relative;
+    height: 80%;
+    overflow: hidden;
+    @media ${device.small} {
+        flex: 0;
+        height: auto;
+    }
+    @media ${device.medium} {
+        height: 88%;
+    }
+`;
 const Box = styled.div`
     display: flex;
     background: white;
     border: 5px solid black;
     justify-content: center;
-    height: 75%;
+    height: 80%;
     width: 90%;
     margin: 0 auto;
     align-items: center;
-
-    @media ${device.small}, ${device.medium}, ${device.large}, ${device.ipad} {
+    @media ${device.small} {
         flex-direction: column;
         border: none;
         margin: 0;
@@ -27,35 +40,20 @@ const Box = styled.div`
     }
 `;
 
-const StyledMain = styled(Main)`
-    width: ${(JWToken) => (JWToken === " " ? "97%" : "100%")};
-    margin: 0;
-    position: relative;
-    height: 85%;
-    @media ${device.ipad} {
-        height: 81%;
-    }
-`;
 const Left = styled.div`
     width: 50%;
-    height: 85%;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    @media ${device.small}, ${device.medium}, ${device.large},${device.ipad} {
+    @media ${device.small} {
+        z-index: 1;
         width: 100%;
         position: fixed;
-        bottom: 2.5rem;
+        bottom: 3rem;
         height: 35%;
         background: #ffda0b;
         padding: 1rem;
-    }
-    /* @media ${device.medium}, ${device.large} {
-        height: 30.5%;
-    } */
-    @media ${device.ipad} {
-        height: 30%;
-        bottom: 11.5rem;
     }
 `;
 const MainText = styled.div`
@@ -66,14 +64,11 @@ const MainText = styled.div`
     align-items: left;
     align-content: center;
     padding: 2rem;
-    @media ${device.small}, ${device.medium}, ${device.large}, ${device.ipad} {
+    @media ${device.small} {
         padding: 0rem;
         width: 100%;
     }
-    @media ${device.medium} {
-    }
-    @media ${device.large} {
-    }
+
     @media ${device.ipad} {
         font-size: ${(props) => props.theme.fontSizes.large};
     }
@@ -99,7 +94,7 @@ const StyledLink = styled(Link)`
         letter-spacing: 1px;
     }
 
-    @media ${device.small}, ${device.medium}, ${device.large}, ${device.ipad} {
+    @media ${device.small} {
         font-size: ${(props) => props.theme.fontSizes.small};
         width: 8rem;
         padding: 0.3rem;
@@ -119,46 +114,25 @@ const Right = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-
     @media ${device.small} {
+        z-index: 0;
+        top: 3rem;
+        position: fixed;
         width: 100%;
         background: white;
-        height: 100%;
         justify-content: initial;
         align-items: initial;
-    }
-    @media ${device.medium} {
-        width: 100%;
-        background: white;
-        height: 100%;
-        justify-content: initial;
-        align-items: initial;
-    }
-    @media ${device.large} {
-        width: 100%;
-        background: white;
-        height: 100%;
-        justify-content: initial;
-        align-items: initial;
+        overflow: hidden;
     }
 `;
 const MainImg = styled.img`
     width: 90%;
     object-fit: cover;
-    @media ${device.small}, ${device.medium}, ${device.large}, ${device.ipad} {
+    max-height: 80%;
+    @media ${device.small} {
         width: 100%;
-        height: 61%;
+        max-height: 58%;
         position: absolute;
-    }
-    @media ${device.medium} {
-        height: 65%;
-    }
-    @media ${device.large}, ${device.ipad} {
-        height: 64%;
-    }
-
-    @media ${device.laptop}, ${device.wide} {
-        max-height: 80%;
     }
 `;
 const Text = styled.p`

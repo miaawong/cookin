@@ -65,6 +65,9 @@ const RecipeName = styled.h1`
     font-size: ${(props) => props.theme.fontSizes.large};
     display: flex;
     justify-content: center;
+    @media ${device.small} {
+        font-size: ${(props) => props.theme.fontSizes.medium};
+    }
 `;
 
 const Description = styled.p`
@@ -105,42 +108,33 @@ const Explore = ({ JWToken, userId, recipes, loggedIn }) => {
         const { img, recipeName, recipeDesc, likes, _id } = recipe;
         return (
             <CardBox recipes={recipes} key={_id}>
-                <Image src={img} recipes={recipes} />
-
+                <Image src={img} recipes={recipes} />{" "}
+                {JWToken ? (
+                    likes.indexOf(userId) === -1 ? (
+                        <FavoriteBtn
+                            onClick={() => dispatch(likeRecipe(_id, JWToken))}
+                        >
+                            <FaRegHeart size={30} />
+                        </FavoriteBtn>
+                    ) : (
+                        <FavoriteBtn
+                            onClick={() => dispatch(unlikeRecipe(_id, JWToken))}
+                        >
+                            <FaHeart
+                                style={{
+                                    color: "#FB170A",
+                                }}
+                                size={30}
+                            />
+                        </FavoriteBtn>
+                    )
+                ) : (
+                    <FavoriteBtn onClick={() => history.push("/signup")}>
+                        <FaRegHeart size={30} />
+                    </FavoriteBtn>
+                )}
                 <DescriptionBox>
-                    <RecipeName>
-                        {JWToken ? (
-                            likes.indexOf(userId) === -1 ? (
-                                <FavoriteBtn
-                                    onClick={() =>
-                                        dispatch(likeRecipe(_id, JWToken))
-                                    }
-                                >
-                                    <FaRegHeart size={30} />
-                                </FavoriteBtn>
-                            ) : (
-                                <FavoriteBtn
-                                    onClick={() =>
-                                        dispatch(unlikeRecipe(_id, JWToken))
-                                    }
-                                >
-                                    <FaHeart
-                                        style={{
-                                            color: "#FB170A",
-                                        }}
-                                        size={30}
-                                    />
-                                </FavoriteBtn>
-                            )
-                        ) : (
-                            <FavoriteBtn
-                                onClick={() => history.push("/signup")}
-                            >
-                                <FaRegHeart size={30} />
-                            </FavoriteBtn>
-                        )}
-                        {recipeName}
-                    </RecipeName>
+                    <RecipeName>{recipeName}</RecipeName>
                     <Description>
                         {recipeDesc.length > 40
                             ? `${recipeDesc.substr(0, 40)}...`
@@ -164,6 +158,7 @@ const Explore = ({ JWToken, userId, recipes, loggedIn }) => {
             </div>
 
             {card}
+            <div style={{ marginBottom: "3rem" }}></div>
         </Main>
     );
 };

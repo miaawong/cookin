@@ -204,6 +204,7 @@ const EditRecipeDetails = ({ recipe, JWToken }) => {
                     Submit
                 </Submit>
             </div>
+            <div style={{ marginBottom: "5rem" }} />
         </StyledForm>
     );
 };
