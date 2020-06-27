@@ -29,7 +29,7 @@ export const StyledForm = styled.form`
     flex-direction: column;
     justify-content: space-evenly;
     align-content: flex-start;
-    height: auto;
+    z-index: 0;
     @media ${device.laptop}, ${device.wide} {
         margin: 0 auto 0 6rem;
     }
@@ -54,7 +54,6 @@ export const TextInput = styled.input`
     border: 1px solid black;
     @media ${device.small} {
         font-size: ${(props) => props.theme.fontSizes.small};
-        height: 2rem;
     }
 `;
 export const TextArea = styled.textarea`
@@ -99,6 +98,8 @@ export const ImageUpload = styled.div`
     width: 100%;
     border-radius: 8px;
     text-align: center;
+    font-size: ${(props) => props.theme.fontSizes.small};
+    position: relative;
     @media ${device.laptop}, ${device.wide} {
         height: 15rem;
         font-size: ${(props) => props.theme.fontSizes.medium};
