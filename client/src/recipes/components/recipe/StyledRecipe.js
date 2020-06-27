@@ -5,9 +5,8 @@ export const Main = styled.div`
     font-family: ${(props) => props.theme.font};
     width: 100%;
     display: flex;
-    margin-bottom: 5rem;
     flex-direction: column;
-
+    height: 100%;
     @media ${device.laptop} {
         width: ${({ JWToken }) => (JWToken ? "96%" : "100%")};
     }
@@ -15,13 +14,15 @@ export const Main = styled.div`
     @media ${device.wide} {
         width: ${({ JWToken }) => (JWToken ? "97%" : "100%")};
     }
+    @media ${device.small} {
+        height: auto;
+    }
 `;
 export const Description = styled.div`
     width: 100%;
     font-size: ${(props) => props.theme.fontSizes.small};
     padding: 1rem;
     background: ${(props) => props.theme.colors.yellow};
-    order: 2;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -30,11 +31,10 @@ export const Description = styled.div`
         padding: 2rem;
     }
 `;
-export const Middle = styled.div`
+export const Bottom = styled.div`
     width: 100%;
     align-self: center;
     padding: 1rem;
-    order: 3;
     font-size: ${(props) => props.theme.fontSizes.small};
     display: flex;
     flex-direction: column;
@@ -52,8 +52,9 @@ export const ImgContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 69%;
+    height: 65%;
     justify-content: center;
+    position: relative;
 `;
 export const Image = styled.img`
     width: 100%;
@@ -96,9 +97,12 @@ export const BottomDesc = styled.div`
     }
 `;
 export const FavoriteBtn = styled.button`
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2px 4px 0px 4px;
+    border-radius: 8px;
     position: absolute;
-    right: 1rem;
-    background: none;
+    top: 1rem;
+    right: 0.5rem;
     border: none;
 `;
 export const Modification = styled.div`
