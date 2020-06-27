@@ -196,6 +196,7 @@ const CreateRecipeDetails = ({ JWToken }) => {
                     Submit
                 </Submit>
             </div>
+            <div style={{ marginBottom: "5rem" }} />
         </StyledForm>
     );
 };
