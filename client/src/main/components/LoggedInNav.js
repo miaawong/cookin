@@ -9,9 +9,8 @@ import { device } from "../../Theme";
 
 const StyledLink = styled(Link)`
     color: white;
-    text-decoration: none !important;
+    text-decoration: none;
     display: flex;
-    /* width: 12rem; */
     height: 5rem;
     justify-content: center;
     align-items: center;
