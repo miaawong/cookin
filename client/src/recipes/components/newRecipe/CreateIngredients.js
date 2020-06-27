@@ -4,8 +4,8 @@ import { useForm, useFieldArray, Controller } from "react-hook-form";
 import Select from "react-select";
 import { setDraftRecipe } from "../../recipeAction";
 import { StyledForm, Submit, TextInput, ProgressLabel } from "../StyledForm";
-import styled from "styled-components";
 import { Ingredient, IngredientRow, AddButton } from "../StyledIngredients";
+import styled from "styled-components";
 import { device, theme } from "../../../Theme";
 
 const UnitLabel = styled.label`
@@ -18,7 +18,6 @@ const customStyles = {
     option: (provided, state) => ({
         ...provided,
         borderBottom: "1px solid #d0d5da",
-
         color: "#000000",
         backgroundColor: state.isSelected ? `${theme.colors.yellow}` : "white",
         "&:hover": {
@@ -134,6 +133,7 @@ const CreateIngredients = ({ draftRecipe }) => {
                                                 unitRef.current = e;
                                             }}
                                             styles={customStyles}
+                                            maxMenuHeight={150}
                                         />
                                     }
                                     value={option}
