@@ -28,16 +28,26 @@ const Login = ({ id }) => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const dispatch = useDispatch();
-    const { register, handleSubmit, errors, reset } = useForm();
-    const [loginError, setLoginError] = useState(false);
+    const { register, handleSubmit, errors, reset, setError } = useForm();
     const onSubmit = (data) => {
-        dispatch(login(data)).then((res) =>
-            res && res.response.status === 401
-                ? (emailRef.current.value = "") &
-                  (passwordRef.current.value = "") &
-                  setLoginError(true)
-                : null
+        dispatch(login(data)).then(
+            (res) =>
+                res &&
+                res === "Unauthorized" &&
+                setError([
+                    {
+                        type: "required",
+                        name: "email",
+                        message: "Incorrect Email or Password",
+                    },
+                    {
+                        type: "required",
+                        name: "password",
+                        message: "Incorrect Email or Password",
+                    },
+                ])
         );
+        reset();
     };
 
     if (id) {
@@ -80,28 +90,17 @@ const Login = ({ id }) => {
                             type="text"
                             name="email"
                             placeholder="john@gmail.com"
-                            ref={(e) => {
-                                register(
-                                    e,
-                                    {
-                                        required: "I cannot be empty",
-                                        pattern: {
-                                            value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                                            message: "Invalid email address",
-                                        },
-                                    },
-                                    (emailRef.current = e)
-                                );
-                            }}
+                            ref={register({
+                                required: "I cannot be empty",
+                                pattern: {
+                                    value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                    message: "Invalid email address",
+                                },
+                            })}
                         />
                         <ErrorMessage>
                             {errors.email && "*" + errors.email.message}
                         </ErrorMessage>
-                        {loginError && (
-                            <ErrorMessage>
-                                *Incorrect Email or Password, please try again
-                            </ErrorMessage>
-                        )}
                     </label>
                     <label>
                         Password
@@ -119,6 +118,9 @@ const Login = ({ id }) => {
                                 );
                             }}
                         />
+                        <ErrorMessage>
+                            {errors.password && "*" + errors.password.message}
+                        </ErrorMessage>
                     </label>
 
                     <Submit
