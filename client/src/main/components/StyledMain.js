@@ -7,9 +7,12 @@ export const Main = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    margin: 0;
     @media ${device.laptop}, ${device.wide} {
         margin: ${({ JWToken }) => (JWToken ? " 0 auto 0 2rem " : "0 auto")};
         width: 90%;
+        flex-direction: row;
         /* flex: 1; */
     }
     @media ${device.wide} {
