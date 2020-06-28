@@ -1,11 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import Select from "react-select";
-import { setDraftRecipe } from "../../recipeAction";
+import { setDraftRecipe, editRecipe } from "../../recipeAction";
 import { StyledForm, Submit, TextInput, ProgressLabel } from "../StyledForm";
 import { Ingredient, IngredientRow, AddButton } from "../StyledIngredients";
-
+import { GrFormClose } from "react-icons/gr";
 import styled from "styled-components";
 import { device, theme } from "../../../Theme";
 
@@ -38,7 +38,8 @@ const customStyles = {
         margin: ".5rem 0",
     }),
 };
-const EditIngredients = ({ draftRecipe, recipe }) => {
+const EditIngredients = ({ draftRecipe, recipe, JWToken }) => {
+    const [updated, setUpdated] = useState({});
     const [options, setOptions] = useState([
         { value: " ", label: " " },
         { value: "tsp", label: "tsp" },
@@ -60,18 +61,28 @@ const EditIngredients = ({ draftRecipe, recipe }) => {
             ingredients: ingredients,
         },
     });
-    const { fields, append } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control,
         name: "ingredients",
     });
+    function deleteFields(index) {
+        remove(index);
+        dispatch();
+    }
     const onSubmit = (data) => {
-        draftRecipe.ingredients = data.ingredients;
+        if (data.ingredients) {
+            draftRecipe.ingredients = data.ingredients;
+        } else {
+            draftRecipe.ingredients = [];
+        }
         dispatch(setDraftRecipe(draftRecipe));
     };
+
     const [option, setOpt] = useState("");
     const ingredientRef = useRef();
     const amountRef = useRef();
     const unitRef = useRef();
+    console.log(fields);
 
     return (
         <StyledForm
@@ -143,6 +154,14 @@ const EditIngredients = ({ draftRecipe, recipe }) => {
                                     control={control}
                                 />
                             </UnitLabel>
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    deleteFields(index);
+                                }}
+                            >
+                                <GrFormClose size={30} />
+                            </button>
                         </IngredientRow>
                         {unit && unit.value === "other" && (
                             <div
@@ -219,5 +238,6 @@ const EditIngredients = ({ draftRecipe, recipe }) => {
 
 const mapStateToProps = (state) => ({
     draftRecipe: state["recipeReducer"].draftRecipe,
+    JWToken: state["authReducer"].JWToken,
 });
 export default connect(mapStateToProps)(EditIngredients);
