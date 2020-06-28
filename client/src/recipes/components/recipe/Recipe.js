@@ -113,6 +113,7 @@ const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
 
                 <span
                     style={{
+                        margin: "1rem 0",
                         textAlign: "center",
                     }}
                 >
@@ -129,7 +130,9 @@ const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
                     >
                         <p>
                             Serves:{" "}
-                            {{ servings } == !null ? `${servings} people` : ""}
+                            {{ servings } == !null && !isNaN(servings)
+                                ? `${servings} people`
+                                : ""}
                         </p>
 
                         <p>
