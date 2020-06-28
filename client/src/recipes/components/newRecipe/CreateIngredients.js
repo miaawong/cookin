@@ -7,7 +7,7 @@ import { StyledForm, Submit, TextInput, ProgressLabel } from "../StyledForm";
 import { Ingredient, IngredientRow, AddButton } from "../StyledIngredients";
 import styled from "styled-components";
 import { device, theme } from "../../../Theme";
-
+import { GrFormClose } from "react-icons/gr";
 const UnitLabel = styled.label`
     width: 100%;
     @media ${device.laptop}, ${device.wide} {
@@ -57,10 +57,14 @@ const CreateIngredients = ({ draftRecipe }) => {
             ingredients: [{ ingName: "", amount: null, unit: "" }],
         },
     });
-    const { fields, append } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control,
         name: "ingredients",
     });
+
+    function deleteFields(index) {
+        remove(index);
+    }
     const onSubmit = (data) => {
         draftRecipe.ingredients = data.ingredients;
         dispatch(setDraftRecipe(draftRecipe));
@@ -143,6 +147,14 @@ const CreateIngredients = ({ draftRecipe }) => {
                                     control={control}
                                 />
                             </UnitLabel>
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    deleteFields(index);
+                                }}
+                            >
+                                <GrFormClose size={30} />
+                            </button>
                         </IngredientRow>
 
                         {unit && unit.value === "other" && (
