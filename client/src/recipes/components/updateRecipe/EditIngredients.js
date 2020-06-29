@@ -3,7 +3,13 @@ import { connect, useDispatch } from "react-redux";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import Select from "react-select";
 import { setDraftRecipe, editRecipe } from "../../recipeAction";
-import { StyledForm, Submit, TextInput, ProgressLabel } from "../StyledForm";
+import {
+    StyledForm,
+    Submit,
+    TextInput,
+    ProgressLabel,
+    DeleteInput,
+} from "../StyledForm";
 import { Ingredient, IngredientRow, AddButton } from "../StyledIngredients";
 import { GrFormClose } from "react-icons/gr";
 import styled from "styled-components";
@@ -39,7 +45,6 @@ const customStyles = {
     }),
 };
 const EditIngredients = ({ draftRecipe, recipe, JWToken }) => {
-    const [updated, setUpdated] = useState({});
     const [options, setOptions] = useState([
         { value: " ", label: " " },
         { value: "tsp", label: "tsp" },
@@ -54,7 +59,6 @@ const EditIngredients = ({ draftRecipe, recipe, JWToken }) => {
         { value: "other", label: "other" },
     ]);
     let { ingredients } = recipe;
-
     const dispatch = useDispatch();
     const { register, handleSubmit, control, setValue, watch } = useForm({
         defaultValues: {
@@ -65,16 +69,16 @@ const EditIngredients = ({ draftRecipe, recipe, JWToken }) => {
         control,
         name: "ingredients",
     });
-    function deleteFields(index) {
-        remove(index);
-        dispatch();
-    }
+
     const onSubmit = (data) => {
-        if (data.ingredients) {
-            draftRecipe.ingredients = data.ingredients;
+        // if the data is empty, just set the ingredients to empty
+        if (Object.keys(data).length === 0) {
+            draftRecipe.ingredients = data;
         } else {
-            draftRecipe.ingredients = [];
+            // if there are new ingredients, add it to draft
+            draftRecipe.ingredients = data.ingredients;
         }
+
         dispatch(setDraftRecipe(draftRecipe));
     };
 
@@ -82,7 +86,6 @@ const EditIngredients = ({ draftRecipe, recipe, JWToken }) => {
     const ingredientRef = useRef();
     const amountRef = useRef();
     const unitRef = useRef();
-    console.log(fields);
 
     return (
         <StyledForm
@@ -154,14 +157,13 @@ const EditIngredients = ({ draftRecipe, recipe, JWToken }) => {
                                     control={control}
                                 />
                             </UnitLabel>
-                            <button
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    deleteFields(index);
+                            <DeleteInput
+                                onClick={() => {
+                                    remove(index);
                                 }}
                             >
                                 <GrFormClose size={30} />
-                            </button>
+                            </DeleteInput>
                         </IngredientRow>
                         {unit && unit.value === "other" && (
                             <div
