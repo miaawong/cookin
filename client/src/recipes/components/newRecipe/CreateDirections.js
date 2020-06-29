@@ -4,7 +4,14 @@ import { useForm, useFieldArray } from "react-hook-form";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { createRecipe } from "../../recipeAction";
-import { StyledForm, Submit, TextArea, ProgressLabel } from "../StyledForm";
+import {
+    StyledForm,
+    Submit,
+    TextArea,
+    ProgressLabel,
+    DeleteInput,
+} from "../StyledForm";
+import { GrFormClose } from "react-icons/gr";
 
 const AddMore = styled.button`
     display: block;
@@ -25,7 +32,7 @@ const CreateDirections = ({ JWToken, draftRecipe }) => {
             directions: [""],
         },
     });
-    const { fields, append } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control,
         name: "directions",
     });
@@ -47,9 +54,20 @@ const CreateDirections = ({ JWToken, draftRecipe }) => {
                         <TextArea
                             type="text"
                             name={`directions[${index}]`}
-                            ref={register}
+                            ref={register()}
                             style={{ height: "8rem" }}
                         />
+                        {index >= 1 && (
+                            <DeleteInput
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    remove(index);
+                                }}
+                                style={{ float: "right", margin: 0 }}
+                            >
+                                <GrFormClose size={30} />
+                            </DeleteInput>
+                        )}
                     </label>
                 );
             })}
