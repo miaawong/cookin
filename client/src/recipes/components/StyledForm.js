@@ -114,6 +114,9 @@ export const ErrorMessage = styled.p`
 export const DeleteInput = styled.button`
     border: none;
     background: none;
-    margin-top: 0.5rem;
-    border: 2px solid black;
+    margin-top: 2rem;
+    height: 3rem;
+    @media ${device.small}, ${device.medium} {
+        margin: 0;
+    }
 `;
