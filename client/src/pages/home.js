@@ -11,6 +11,7 @@ const StyledMain = styled(Main)`
     position: relative;
     height: 80%;
     overflow: hidden;
+    flex-direction: row;
     @media ${device.small} {
         flex: 0;
         height: auto;
@@ -67,6 +68,9 @@ const MainText = styled.div`
     @media ${device.small} {
         padding: 0rem;
         width: 100%;
+    }
+    @media ${device.medium}, ${device.large} {
+        padding: 1rem;
     }
 
     @media ${device.ipad} {
@@ -126,9 +130,9 @@ const Right = styled.div`
     }
 `;
 const MainImg = styled.img`
-    width: 90%;
+    width: 95%;
     object-fit: cover;
-    max-height: 80%;
+    height: 95%;
     @media ${device.small} {
         width: 100%;
         max-height: 58%;

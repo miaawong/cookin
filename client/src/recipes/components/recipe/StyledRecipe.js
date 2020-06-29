@@ -6,7 +6,7 @@ export const Main = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 100vh;
     @media ${device.laptop} {
         width: ${({ JWToken }) => (JWToken ? "96%" : "100%")};
     }
@@ -14,11 +14,12 @@ export const Main = styled.div`
     @media ${device.wide} {
         width: ${({ JWToken }) => (JWToken ? "97%" : "100%")};
     }
-    @media ${device.small} {
+    @media ${device.small}, ${device.medium}, ${device.large} {
         height: auto;
     }
 `;
 export const Description = styled.div`
+    height: auto;
     width: 100%;
     font-size: ${(props) => props.theme.fontSizes.small};
     padding: 1rem;
@@ -32,6 +33,7 @@ export const Description = styled.div`
     }
 `;
 export const Bottom = styled.div`
+    height: auto;
     width: 100%;
     align-self: center;
     padding: 1rem;
@@ -55,6 +57,12 @@ export const ImgContainer = styled.div`
     height: 65%;
     justify-content: center;
     position: relative;
+    @media ${device.small} {
+        height: 25rem;
+    }
+    @media ${device.medium}, ${device.large} {
+        height: 30rem;
+    }
 `;
 export const Image = styled.img`
     width: 100%;
@@ -139,8 +147,7 @@ export const DeleteModal = styled.div`
     }
 `;
 export const DeleteBtn = styled.button`
-    width: 7rem;
-    height: 3rem;
+    padding: 0.5rem;
     color: white;
     background: black;
     border: none;

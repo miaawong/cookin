@@ -11,6 +11,7 @@ const Recipe = ({ currentRecipe, JWToken, edit, userId, loggedIn }) => {
     const history = useHistory();
     const dispatch = useDispatch();
     useEffect(() => {
+        window.scrollTo(0, 0);
         dispatch(getCurrentRecipe(recipeId, history));
         return () => {
             dispatch({

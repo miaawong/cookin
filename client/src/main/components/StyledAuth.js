@@ -7,10 +7,12 @@ export const StyledMain = styled(Main)`
     justify-content: space-around;
     @media ${device.small}, ${device.medium}, ${device.large} {
         flex-direction: column;
+        height: auto;
     }
+    height: 84%;
 `;
 export const ImageContainer = styled.div`
-    height: 30%;
+    height: 50%;
     width: 50%;
     margin: 0 auto;
     @media ${device.small}, ${device.medium}, ${device.large} {
@@ -19,7 +21,8 @@ export const ImageContainer = styled.div`
 `;
 
 export const Img = styled.img`
-    width: 75%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
 `;
 

@@ -47,14 +47,6 @@ const Nav = styled.nav`
     top: auto;
     flex-direction: row;
 
-    &:hover label {
-        display: none;
-        margin: 0 auto;
-    }
-    &:hover > ${StyledLink} {
-        width: 12rem;
-        justify-content: center;
-    }
     @media ${device.wide}, ${device.laptop} {
         transition: width 200ms ease;
         flex-direction: column;
@@ -74,6 +66,7 @@ const Nav = styled.nav`
         }
 
         &:hover > ${StyledLink} {
+            width: 12rem;
             justify-content: space-between;
         }
     }
@@ -97,7 +90,7 @@ export default function LoggedInNav() {
                 <MdFavorite style={{ color: "white" }} size={30} />
             </StyledLink>
             <StyledLink to="/addRecipe">
-                <label>New Recipe</label>
+                <label>Add Recipe</label>
                 <MdCreate style={{ color: "white" }} size={30} />
             </StyledLink>
             <StyledLink to="/settings">

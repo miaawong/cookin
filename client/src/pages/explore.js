@@ -97,6 +97,7 @@ const StyledLink = styled.button`
 const Explore = ({ JWToken, userId, recipes, loggedIn }) => {
     const dispatch = useDispatch();
     useEffect(() => {
+        window.scrollTo(0, 0);
         dispatch(exploreRecipes());
         // return () => {
         //     cleanup;
@@ -158,7 +159,7 @@ const Explore = ({ JWToken, userId, recipes, loggedIn }) => {
             </div>
 
             {card}
-            <div style={{ marginBottom: "3rem" }}></div>
+            <div style={{ marginBottom: "5rem" }}></div>
         </Main>
     );
 };

@@ -3,11 +3,17 @@ import { connect, useDispatch } from "react-redux";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import Select from "react-select";
 import { setDraftRecipe } from "../../recipeAction";
-import { StyledForm, Submit, TextInput, ProgressLabel } from "../StyledForm";
+import {
+    StyledForm,
+    Submit,
+    TextInput,
+    ProgressLabel,
+    DeleteInput,
+} from "../StyledForm";
 import { Ingredient, IngredientRow, AddButton } from "../StyledIngredients";
 import styled from "styled-components";
 import { device, theme } from "../../../Theme";
-
+import { GrFormClose } from "react-icons/gr";
 const UnitLabel = styled.label`
     width: 100%;
     @media ${device.laptop}, ${device.wide} {
@@ -57,10 +63,11 @@ const CreateIngredients = ({ draftRecipe }) => {
             ingredients: [{ ingName: "", amount: null, unit: "" }],
         },
     });
-    const { fields, append } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control,
         name: "ingredients",
     });
+
     const onSubmit = (data) => {
         draftRecipe.ingredients = data.ingredients;
         dispatch(setDraftRecipe(draftRecipe));
@@ -79,8 +86,6 @@ const CreateIngredients = ({ draftRecipe }) => {
             <ProgressLabel>Ingredients</ProgressLabel>
             {fields.map((input, index) => {
                 const unit = watch(`ingredients[${index}].unit`);
-                console.log(unit);
-
                 return (
                     <Ingredient key={input.id} unit={unit}>
                         <IngredientRow>
@@ -143,6 +148,14 @@ const CreateIngredients = ({ draftRecipe }) => {
                                     control={control}
                                 />
                             </UnitLabel>
+                            <DeleteInput
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    remove(index);
+                                }}
+                            >
+                                <GrFormClose size={30} />
+                            </DeleteInput>
                         </IngredientRow>
 
                         {unit && unit.value === "other" && (
