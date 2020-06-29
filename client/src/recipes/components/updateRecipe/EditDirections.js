@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { editRecipe } from "../../recipeAction";
-import { StyledForm, Submit, TextArea, ProgressLabel } from "../StyledForm";
+import {
+    StyledForm,
+    Submit,
+    TextArea,
+    ProgressLabel,
+    DeleteInput,
+} from "../StyledForm";
 import styled from "styled-components";
+import { GrFormClose } from "react-icons/gr";
 
 const AddMore = styled.button`
     display: block;
@@ -17,6 +24,7 @@ const AddMore = styled.button`
 `;
 const EditDirections = ({ JWToken, draftRecipe, recipe }) => {
     let { _id, directions } = recipe;
+
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -25,7 +33,7 @@ const EditDirections = ({ JWToken, draftRecipe, recipe }) => {
             directions: directions,
         },
     });
-    const { fields, append } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control,
         name: "directions",
     });
@@ -42,10 +50,19 @@ const EditDirections = ({ JWToken, draftRecipe, recipe }) => {
                 return (
                     <label key={index}>
                         {`Step ${index + 1}`}
+                        <DeleteInput
+                            onClick={(e) => {
+                                e.preventDefault();
+                                remove(index);
+                            }}
+                            style={{ float: "right", margin: 0 }}
+                        >
+                            <GrFormClose size={30} />
+                        </DeleteInput>
                         <TextArea
                             type="text"
                             name={`directions[${index}]`}
-                            ref={register}
+                            ref={register()}
                         />
                     </label>
                 );
