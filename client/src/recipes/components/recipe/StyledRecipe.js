@@ -111,6 +111,9 @@ export const FavoriteBtn = styled.button`
     position: absolute;
     top: 1rem;
     right: ${({ JWToken }) => (JWToken ? "2rem" : "0.5rem")};
+    @media ${device.small}, ${device.medium}, ${device.large} {
+        right: 0.5rem;
+    }
     border: none;
 `;
 export const Modification = styled.div`
