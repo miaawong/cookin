@@ -7,7 +7,6 @@ export const Main = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
     margin: 0;
     @media ${device.laptop}, ${device.wide} {
         margin: ${({ JWToken }) => (JWToken ? " 0 auto 0 2rem " : "0 auto")};
@@ -17,6 +16,9 @@ export const Main = styled.div`
     }
     @media ${device.wide} {
         margin: ${({ JWToken }) => (JWToken ? " 0 auto 0 4rem " : "0 auto")};
+    }
+    @media ${device.medium}, ${device.large} {
+        flex-direction: column;
     }
 
     flex-wrap: wrap;
