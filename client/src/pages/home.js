@@ -11,7 +11,7 @@ const StyledMain = styled(Main)`
     position: relative;
     height: 80%;
     overflow: hidden;
-    flex-direction: row;
+    flex-direction: row !important;
     @media ${device.small} {
         flex: 0;
         height: auto;
