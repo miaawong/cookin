@@ -110,3 +110,10 @@ export const ErrorMessage = styled.p`
     color: red;
     font-size: ${(props) => props.theme.fontSizes.small};
 `;
+
+export const DeleteInput = styled.button`
+    border: none;
+    background: none;
+    margin-top: 0.5rem;
+    border: 2px solid black;
+`;
