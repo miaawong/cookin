@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../auth/authAction";
 import { MdFavorite, MdCreate, MdSettings } from "react-icons/md";
-import { FaSignOutAlt, FaSearch } from "react-icons/fa";
+import { FaSignOutAlt, FaSearch, FaBook } from "react-icons/fa";
 import { device } from "../../Theme";
 
 const StyledLink = styled(Link)`
@@ -87,7 +87,7 @@ export default function LoggedInNav() {
 
             <StyledLink to="/dashboard">
                 <label>My Recipes</label>
-                <MdFavorite style={{ color: "white" }} size={30} />
+                <FaBook style={{ color: "white" }} size={30} />
             </StyledLink>
             <StyledLink to="/addRecipe">
                 <label>Add Recipe</label>
