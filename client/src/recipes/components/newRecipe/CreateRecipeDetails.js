@@ -99,6 +99,7 @@ const CreateRecipeDetails = ({ JWToken }) => {
         }
     };
 
+    console.log(errors, "err");
     return (
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
             <ProgressLabel>Details</ProgressLabel>
@@ -111,6 +112,7 @@ const CreateRecipeDetails = ({ JWToken }) => {
                     ref={(e) => {
                         register(e, {
                             required: "*Name is required",
+                            maxLength: 23,
                         });
                         recipeNameRef.current = e;
                     }}
@@ -124,6 +126,9 @@ const CreateRecipeDetails = ({ JWToken }) => {
             </label>
             {errors["recipeName"] && (
                 <ErrorMessage>{errors["recipeName"].message}</ErrorMessage>
+            )}
+            {errors.recipeName?.type === "maxLength" && (
+                <ErrorMessage>Your input exceed max length</ErrorMessage>
             )}
             <label>
                 Description
