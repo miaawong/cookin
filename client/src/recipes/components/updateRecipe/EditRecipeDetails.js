@@ -99,7 +99,6 @@ const EditRecipeDetails = ({ recipe, JWToken }) => {
     return (
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
             <ProgressLabel>Details</ProgressLabel>
-
             <label>
                 Name
                 <TextInput
@@ -107,7 +106,10 @@ const EditRecipeDetails = ({ recipe, JWToken }) => {
                     name="recipeName"
                     placeholder="Recipe Name"
                     ref={(e) => {
-                        register(e, { pattern: "I cannot be empty" });
+                        register(e, {
+                            pattern: "I cannot be empty",
+                            maxLength: 23,
+                        });
                         recipeNameRef.current = e;
                     }}
                     defaultValue={recipeName}
@@ -119,11 +121,12 @@ const EditRecipeDetails = ({ recipe, JWToken }) => {
                     }}
                 ></TextInput>
             </label>
-
             {errors["recipeName"] && (
                 <ErrorMessage>{errors["recipeName"].message}</ErrorMessage>
+            )}{" "}
+            {errors.recipeName?.type === "maxLength" && (
+                <ErrorMessage>Your input exceed max length</ErrorMessage>
             )}
-
             <label>
                 Description
                 <TextInput
@@ -143,7 +146,6 @@ const EditRecipeDetails = ({ recipe, JWToken }) => {
                     }}
                 />
             </label>
-
             <label>
                 Servings
                 <TextInput
@@ -168,11 +170,9 @@ const EditRecipeDetails = ({ recipe, JWToken }) => {
                     defaultValue={servings}
                 />
             </label>
-
             {errors["servings"] && (
                 <ErrorMessage>{errors["servings"].message}</ErrorMessage>
             )}
-
             <HourMinute>
                 <label>
                     Hour
@@ -208,7 +208,6 @@ const EditRecipeDetails = ({ recipe, JWToken }) => {
                     />
                 </label>
             </HourMinute>
-
             <div>
                 <ImageUpload {...getRootProps()}>
                     <input {...getInputProps()} />
@@ -229,7 +228,6 @@ const EditRecipeDetails = ({ recipe, JWToken }) => {
                     )}
                 </ImageUpload>
             </div>
-
             <div>
                 <Submit type="submit" value="Submit">
                     Submit
