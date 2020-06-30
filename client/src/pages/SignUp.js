@@ -95,7 +95,7 @@ const SignUp = () => {
                     <label>
                         Email
                         <TextInput
-                            type="text"
+                            type="email"
                             name="email"
                             ref={register({
                                 required: "I cannot be empty",

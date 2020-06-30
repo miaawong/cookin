@@ -62,6 +62,13 @@ export const setDraftRecipe = (data) => {
             duration = parseInt(duration_hour) * 60;
             duration = duration + parseInt(duration_mins);
         }
+        // else if it's just mins
+        else if (duration_mins) {
+            duration = parseInt(duration_mins);
+        } else if (duration_hour) {
+            duration = parseInt(duration_hour) * 60;
+        }
+
         const recipe = {
             recipeName,
             recipeDesc,
@@ -133,6 +140,7 @@ export const editRecipe = (recipeId, data, token, history) => {
             directions,
             img,
         } = data;
+        console.log(data, "in action");
 
         const updateRecipe = {
             recipeName,

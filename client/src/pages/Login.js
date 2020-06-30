@@ -87,7 +87,7 @@ const Login = ({ id }) => {
                     <label>
                         Email
                         <TextInput
-                            type="text"
+                            type="email"
                             name="email"
                             placeholder="john@gmail.com"
                             ref={register({

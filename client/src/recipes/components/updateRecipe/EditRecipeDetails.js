@@ -35,30 +35,30 @@ const EditRecipeDetails = ({ recipe, JWToken }) => {
             preview: URL.createObjectURL(file),
         });
         return (
-            // <li key={file.path} style={{ listStyle: "none" }}>
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "space-around",
-                    textAlign: "center",
-                    padding: "1rem 2rem",
-                }}
-            >
-                <img
-                    src={file.preview}
+            <li key={file.path} style={{ listStyle: "none" }}>
+                <div
                     style={{
-                        width: "100px",
-                        height: "100px",
+                        display: "flex",
+                        justifyContent: "space-around",
+                        textAlign: "center",
+                        padding: "1rem 2rem",
                     }}
-                    alt={file.name}
-                />
-                <p>
-                    {file.path.length > 15
-                        ? `${file.path.substr(0, 15)}`
-                        : file.path}
-                </p>
-            </div>
-            // </li>
+                >
+                    <img
+                        src={file.preview}
+                        style={{
+                            width: "100px",
+                            height: "100px",
+                        }}
+                        alt={file.name}
+                    />
+                    <p>
+                        {file.path.length > 15
+                            ? `${file.path.substr(0, 15)}`
+                            : file.path}
+                    </p>
+                </div>
+            </li>
         );
     });
     const [uploadProgress, setProgress] = useState(0);
