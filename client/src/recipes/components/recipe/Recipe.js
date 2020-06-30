@@ -108,124 +108,128 @@ const Recipe = ({ currentRecipe, JWToken, userId, loggedIn }) => {
                     </FavoriteBtn>
                 )}
             </ImgContainer>
-            <Description>
-                <RecipeName>{recipeName}</RecipeName>
+            <section style={{ background: "#FFDA0B", width: "100%" }}>
+                <Description>
+                    <RecipeName>{recipeName}</RecipeName>
 
-                <span
-                    style={{
-                        margin: "1rem 0",
-                        textAlign: "center",
-                    }}
-                >
-                    {recipeDesc}
-                </span>
-                <BottomDesc>
-                    <div
+                    <span
                         style={{
-                            width: "100%",
-                            display: "flex",
-                            flexWrap: "wrap",
-                            justifyContent: "space-between",
+                            margin: "1rem 0",
+                            textAlign: "center",
                         }}
                     >
-                        <p>
-                            Serves:{" "}
-                            {{ servings } == !null && !isNaN(servings)
-                                ? `${servings} people`
-                                : ""}
-                        </p>
+                        {recipeDesc}
+                    </span>
+                    <BottomDesc>
+                        <div
+                            style={{
+                                width: "100%",
+                                display: "flex",
+                                flexWrap: "wrap",
+                                justifyContent: "space-between",
+                            }}
+                        >
+                            <p>{servings !== null && `Serves: ${servings}`}</p>
 
-                        <p>
-                            Time:{" "}
-                            {!isNaN(duration_hour) && `${duration_hour} hr`}{" "}
-                            {!isNaN(duration_mins) && `${duration_mins} mins`}
-                        </p>
-                    </div>
-                    <div
-                        style={{
-                            width: "100%",
-                            display: "flex",
-                            flexWrap: "wrap",
-                            justifyContent: "space-between",
-                        }}
-                    >
-                        <p>
-                            {createdMonth} {createdYear}
-                        </p>
-                        <p>Created By {capCreator}</p>
-                    </div>
-                    {ownerId === userId && (
-                        <Modification>
-                            <Button
-                                onClick={() => {
-                                    dispatch({
-                                        type: recipeActionTypes.EDIT_STATE,
-                                        payload: true,
-                                    });
-                                }}
-                            >
-                                <FaEdit size={22} />
-                            </Button>
-                            <Button
-                                onClick={() => {
-                                    setDeleteModal(true);
-                                }}
-                            >
-                                <FaTrash size={20} />
-                            </Button>
+                            <p>
+                                {(duration_hour !== 0 || duration_mins !== 0) &&
+                                    "Time: "}
+                                {duration_hour !== 0 && `${duration_hour} hr`}{" "}
+                                {duration_mins !== 0 && `${duration_mins} mins`}
+                            </p>
+                        </div>
+                        <div
+                            style={{
+                                width: "100%",
+                                display: "flex",
+                                flexWrap: "wrap",
+                                justifyContent: "space-between",
+                            }}
+                        >
+                            <p>
+                                {createdMonth} {createdYear}
+                            </p>
+                            <p>Created By {capCreator}</p>
+                        </div>
+                        {ownerId === userId && (
+                            <Modification>
+                                <Button
+                                    onClick={() => {
+                                        dispatch({
+                                            type: recipeActionTypes.EDIT_STATE,
+                                            payload: true,
+                                        });
+                                    }}
+                                >
+                                    <FaEdit size={22} />
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        setDeleteModal(true);
+                                    }}
+                                >
+                                    <FaTrash size={20} />
+                                </Button>
 
-                            {deleteModal && (
-                                <DeleteModalContainer>
-                                    <DeleteModal>
-                                        <h3>
-                                            {" "}
-                                            Are you sure about deleting this
-                                            recipe?{" "}
-                                        </h3>
-                                        <p style={{ fontSize: "16px" }}>
-                                            This action cannot be undone
-                                        </p>
-                                        <DeleteRow>
-                                            <DeleteBtn
-                                                onClick={() => {
-                                                    setDeleteModal(false);
-                                                }}
-                                            >
-                                                Cancel
-                                            </DeleteBtn>
-                                            <DeleteBtn
-                                                onClick={() => {
-                                                    dispatch(
-                                                        deleteRecipe(
-                                                            _id,
-                                                            JWToken,
-                                                            history
-                                                        )
-                                                    );
-                                                }}
-                                                style={{ background: "red" }}
-                                            >
-                                                Delete
-                                            </DeleteBtn>
-                                        </DeleteRow>
-                                    </DeleteModal>
-                                </DeleteModalContainer>
-                            )}
-                        </Modification>
-                    )}
-                    <Category>Ingredients</Category>
-                    <ul>
-                        {ingredients &&
-                            ingredients.map((ingredient, index) => (
-                                <li key={index} style={{ listStyle: "none" }}>
-                                    {ingredient.amount}{" "}
-                                    {ingredient.unit && ingredient.unit.value}{" "}
-                                    {ingredient.ingName}
-                                </li>
-                            ))}
-                    </ul>
-                </BottomDesc>
-            </Description>
+                                {deleteModal && (
+                                    <DeleteModalContainer>
+                                        <DeleteModal>
+                                            <h3>
+                                                {" "}
+                                                Are you sure about deleting this
+                                                recipe?{" "}
+                                            </h3>
+                                            <p style={{ fontSize: "16px" }}>
+                                                This action cannot be undone
+                                            </p>
+                                            <DeleteRow>
+                                                <DeleteBtn
+                                                    onClick={() => {
+                                                        setDeleteModal(false);
+                                                    }}
+                                                >
+                                                    Cancel
+                                                </DeleteBtn>
+                                                <DeleteBtn
+                                                    onClick={() => {
+                                                        dispatch(
+                                                            deleteRecipe(
+                                                                _id,
+                                                                JWToken,
+                                                                history
+                                                            )
+                                                        );
+                                                    }}
+                                                    style={{
+                                                        background: "red",
+                                                    }}
+                                                >
+                                                    Delete
+                                                </DeleteBtn>
+                                            </DeleteRow>
+                                        </DeleteModal>
+                                    </DeleteModalContainer>
+                                )}
+                            </Modification>
+                        )}
+                        <Category>Ingredients</Category>
+                        <ul>
+                            {ingredients &&
+                                ingredients.map((ingredient, index) => (
+                                    <li
+                                        key={index}
+                                        style={{ listStyle: "none" }}
+                                    >
+                                        {ingredient.amount}{" "}
+                                        {ingredient.unit &&
+                                            ingredient.unit.value}{" "}
+                                        {ingredient.ingName}
+                                    </li>
+                                ))}
+                        </ul>
+                    </BottomDesc>
+                </Description>
+            </section>
             <Bottom>
                 <Category>Directions</Category>
                 {directions &&
