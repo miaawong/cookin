@@ -20,7 +20,8 @@ export const Main = styled.div`
 `;
 export const Description = styled.div`
     height: auto;
-    width: 100%;
+    width: 75%;
+    margin: 0 auto;
     font-size: ${(props) => props.theme.fontSizes.small};
     padding: 1rem;
     background: ${(props) => props.theme.colors.yellow};
@@ -31,10 +32,14 @@ export const Description = styled.div`
         font-size: ${(props) => props.theme.fontSizes.medium};
         padding: 2rem;
     }
+    @media ${device.small}, ${device.medium} {
+        width: 100%;
+    }
 `;
 export const Bottom = styled.div`
     height: auto;
-    width: 100%;
+    width: 75%;
+    margin: 0 auto;
     align-self: center;
     padding: 1rem;
     font-size: ${(props) => props.theme.fontSizes.small};
@@ -47,6 +52,9 @@ export const Bottom = styled.div`
     @media ${device.ipad}, ${device.laptop}, ${device.wide} {
         padding: 2rem;
         font-size: ${(props) => props.theme.fontSizes.medium};
+    }
+    @media ${device.small}, ${device.medium} {
+        width: 100%;
     }
 `;
 
